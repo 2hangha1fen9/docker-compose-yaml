@@ -1,0 +1,9 @@
+[2022-11-16T03:57:05.231Z] info  code-server 4.8.3 977b853a1e162ab583aed64b1322d1515c57728c
+[2022-11-16T03:57:05.232Z] info  Using user-data-dir ~/data
+[2022-11-16T03:57:05.248Z] info  Using config file ~/.config/code-server/config.yaml
+[2022-11-16T03:57:05.248Z] info  HTTP server listening on http://0.0.0.0:8443/ 
+[2022-11-16T03:57:05.248Z] info    - Authentication is enabled
+[2022-11-16T03:57:05.248Z] info      - Using password from $PASSWORD
+[2022-11-16T03:57:05.248Z] info    - Not serving HTTPS 
+[2022-11-16T03:57:05.248Z] info    - Proxying the following domain:
+[2022-11-16T03:57:05.248Z] info      - *.code.zhfsmy.cloud

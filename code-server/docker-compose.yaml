@@ -1,0 +1,23 @@
+version: "2.1"
+services:
+  code-server:
+    image: linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+    - PUID=1
+    - PGID=1
+    - TZ=Asia/Shanghai
+    - PASSWORD=Zhf1287609286
+    - DEFAULT_WORKSPACE=/workspace
+    - PROXY_DOMAIN=code.zhfsmy.cloud
+    env_file:
+    - ./.env
+    volumes:
+    - ./data/config:/config
+    - ./data/workspace:/workspace
+    - /home/zhang:/home/zhang
+    - ./data/env:/env
+    - ./data/repository:/repository
+    ports:
+    - 8443:8443
+    restart: always
