@@ -1,0 +1,206 @@
+﻿@{
+    Layout = "~/Views/Shared/_Login.cshtml";
+    ViewBag.Title = "排行榜";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>排行榜</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.rtl.min.css">
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/Content/rank.css">
+    <link rel="stylesheet" href="~/Content/index.css">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="~/Content/login.css">
+</head>
+<body>
+    <div>
+        <div class="header" style="margin-top: 0px;background-color: white;">
+            <div class="header-left">
+                <img src="~/Content/img/index/logo.jpg" alt="">长池小说网
+            </div>
+            <div class="header-center">
+                <a href="/Book/Index">首页</a>
+                <a href="/Library/Index">书库</a>
+                <a href="/Rank/Index" style=" font-weight: bold;border-bottom: 3px solid orange;">排行榜</a>
+                <a onclick="authorclic()">作家专区</a>
+                <a onclick="favbook()">我的书架</a>
+            </div>
+            <div class="muye-header-search">
+                <input id="sename" placeholder="请输入书名或作者名" value="">
+                <a id="asearch" href="javascript:void(0)" onclick="seabook()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </a>
+            </div>
+            @{
+                var username = HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["username"]?.Value);
+                var userphoto = HttpContext.Current.Request.Cookies["userphoto"]?.Value;
+                var xx = HttpContext.Current.Request.Cookies["xx"]?.Value;
+            }
+            @if (username == null)
+            {
+                <div class="user-content">
+                    <button type="button" id="big-login" class="btn" data-bs-toggle="modal" data-bs-target="#verticallyCentered">
+                        登录/注册
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div id="sunav" class="navv">
+                    <ul>
+                        <li class="sunav">
+                            <div class="user-content1">
+                                <img src="/Content/img/author/@userphoto" id="header-portrait" alt="">
+                                <p id="user-name">@username</p>
+                                <svg style="margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                </svg>
+                            </div>
+                            <span style="margin-left:0px">
+                                <ul>
+                                    <li>
+                                        <a href="/Book/ExitLogin">
+                                            <img src="~/Content/img/manager/triangle.png" alt="" style="height: 15px;">
+                                            退出登录
+                                        </a>
+                                    </li>
+                                </ul>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+        <div class="line"></div>
+        <!-- 排行榜 -->
+        <div class="content">
+            <div class="d-flex align-items-start">
+
+                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <div class="same">男生排行榜</div>
+                    <button class="nav-link active" id="v-pills-home-tab" onclick="cateorder(this)" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">都市</button>
+                    <button class="nav-link" id="v-pills-profile-tab" onclick="cateorder(this)" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">玄幻</button>
+                    <button class="nav-link" id="v-pills-settings-tab" onclick="cateorder(this)" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">古代言情</button>
+                    <div class="same">女生排行榜</div>
+                    <button class="nav-link" id="v-pills-profilenv-tab" onclick="cateorder(this)" data-bs-toggle="pill" data-bs-target="#v-pills-profilenv" type="button" role="tab" aria-controls="v-pills-profilenv" aria-selected="false">悬疑</button>
+                    <button class="nav-link" id="v-pills-messagesnv-tab" onclick="cateorder(this)" data-bs-toggle="pill" data-bs-target="#v-pills-messagesnv" type="button" role="tab" aria-controls="v-pills-messagesnv" aria-selected="false">科幻</button>
+                    <button class="nav-link" id="v-pills-settingsnv-tab" onclick="cateorder(this)" data-bs-toggle="pill" data-bs-target="#v-pills-settingsnv" type="button" role="tab" aria-controls="v-pills-settingsnv" aria-selected="false">现代言情</button>
+                </div>
+                <div class="linee"></div>
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <div class="muye-rank-wrap">
+                            @Html.Partial("_Index")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footear">
+            <div class="muye-footer-ctn">
+                <div class="muye-footer-left">
+                    <img class="muye-footer-left-logo" src="~/Content/img/index/logo.jpg">
+                    <span class="muye-footer-left-text">长池小说网</span>
+                    <div class="muye-footer-left-divide"></div>
+                    <p>
+                        © 2022 重庆加多吉文化有限公司<br>
+                        <a href="" rel="noopener noreferrer nofollow">渝ICP备2022010457号</a>|
+                        <a href="" rel="noopener noreferrer nofollow">
+                            <span class="police"></span>渝ICP备2022010457号
+                        </a>|&nbsp;渝ICP备2022010457号&nbsp;|<br>网络文化经营许可证：渝ICP备2022010457号<br>请使用者仔细阅读
+                        <a href="">《长池小说网用户协议》</a>、
+                        <a href="">《长池小说网隐私政策》</a>说明<br>广告投放：
+                        <a href="" rel="noopener noreferrer nofollow">www.wanglaoji.com</a>&nbsp;&nbsp;&nbsp;&nbsp;不良信息举报：1227244076@qq.com<br>意见建议邮箱：1227244076@qq.com&nbsp;&nbsp;&nbsp;&nbsp;版权咨询：1227244076@qq.com
+                    </p>
+                </div>
+                <div class="muye-footer-right">
+                    <div class="muye-footer-right-tiktok">
+                        <img src="~/Content/img/index/tikok.jpg">
+                        <div class="muye-footer-right-tiktok-desc">
+                            <span class="muye-footer-right-tiktok-desc-img"></span>
+                            <span class="muye-footer-right-tiktok-desc-text">打开抖音扫码关注官方账号</span>
+                        </div>
+                    </div>
+                    <div class="muye-footer-right-wechat">
+                        <img src="~/Content/img/index/gzh.jpg">
+                        <div class="muye-footer-right-wechat-desc">
+                            <span class="muye-footer-right-wechat-desc-img"></span>
+                            <span class="muye-footer-right-wechat-desc-text">扫码关注微信公众号</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+@* 搜索 *@
+<script>
+    function seabook() {
+        var sername = $("#sename").val();
+        if (sername != "") {
+            var a = document.getElementById("asearch");
+            a.href = "/Search/?sername=" + sername;
+        }
+
+    }
+</script>
+@*作家专区以及我的书架*@
+<script>
+    //作家专区
+    function authorclic() {
+        var username = "@username";
+        var xx = "@xx";
+        if (username) {
+            if (xx) {
+                window.location = "/Percrea/Index";
+            }
+            else {
+                window.location = "/Author/Index";
+            }
+        }
+        else {
+            $("#big-login").click();
+        }
+    }
+    //我的书架
+    function favbook()
+    {
+        var username = "@username";
+        if (username)
+        {
+            window.location = "/Favorite/Index";
+        }
+        else
+        {
+            $("#big-login").click();
+        }
+    }
+</script>
+@* 当前页面异步刷新 *@
+<script>
+    function cateorder(x) {
+        var catename = x.innerHTML;
+        jQuery.ajax({
+            url: "/Rank/Catedasc",
+            type: "Post",
+            data: { "catename": catename },
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".muye-rank-wrap").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("失败:" + data[0])//弹出框
+            }
+        })
+    }
+</script>
+</html>

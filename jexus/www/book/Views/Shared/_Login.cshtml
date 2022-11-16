@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+
+    @RenderBody()
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade" id="verticallyCentered" tabindex="-1" aria-labelledby="verticallyCenteredLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link xx active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">手机登录</button>
+                                <button class="nav-link xx" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">密码登录</button>
+                            </div>
+                        </nav>
+                        <!-- <h5 class="modal-title" id="verticallyCenteredLabel">Modal title</h5> -->
+                        <button type="button" style="margin:0" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="input-group flex-nowrap">
+                                @Html.TextBox("phone", null, new { @Required = "Required", @placeholder = " 请输入手机号", @id = "phone", @class = "phonenumber logintext" })
+                            </div>
+                            <p style="color: red;" id="spanid"></p>
+                            <div class="input-group mb-3" style="margin-top: 13px;">
+
+                                <input type="text" id="yzm" maxlength="6" value="" required="required" class="logintext" placeholder=" 请输入验证码" style="border-radius: 0%; width: 150px" />
+
+                                <input type="button" value="发送验证码" id="btn" style="width:130px;border-radius:0%;" onclick="Checkname()" />
+                            </div>
+                            <span id="msg"></span>
+                            <div class="confirm">
+                                <span class="color-grey">登录即同意</span>
+                                <a target="_blank" href="/protocal/agreement" class="color-click">用户协议</a>
+                                <span class="color-grey">和</span>
+                                <a target="_blank" href="/protocal/privacy" class="color-click">隐私政策</a>
+                            </div>
+                            <input type="button" onclick="submityzmlogin()" name="sub" class="dlandzc" value="登录/注册" />
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="input-group flex-nowrap">
+                                    <input type="text" id="pwdphone" name="pwdphone" class="form-control" placeholder="请输入手机号" aria-label="Username" aria-describedby="addon-wrapping">
+                                </div>
+                                <div class="input-group mb-3" style="margin-top: 13px;">
+                                    <input type="text" style="border-radius:0%;" id="pwdpwd" name="pwdpwd" class="form-control" placeholder="请输入密码" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button style="border-radius:0%" class="btn btn-outline-secondary" type="button" id="forget">忘记密码</button>
+                                </div>
+                                <span id="msgs" style="color:red"></span>
+                                <div class="confirm">
+                                    <span class="color-grey">登录即同意</span>
+                                    <a target="_blank" href="/protocal/agreement" class="color-click">用户协议</a>
+                                    <span class="color-grey">和</span>
+                                    <a target="_blank" href="/protocal/privacy" class="color-click">隐私政策</a>
+                                </div>
+                                <input type="button" class="dlandzc" value="登录" onclick="checkUserName()" />
+                            </div>
+
+                        </div>
+                        <div id="reset">
+                            <h4>
+                                重置密码
+                            </h4>
+                            <input type="text" id="resetphone" onblur="resetcheckPhone()" class="form-control spac" placeholder="请输入手机号" aria-label="Username" aria-describedby="addon-wrapping">
+                            <p style="color: red;" id="spanidd"></p>
+                            <input type="password" id="resetpwd" onkeyup="checkpassword()" class="form-control spac" placeholder="请输入新密码" aria-label="Username" aria-describedby="addon-wrapping">
+                            <input type="password" id="resetpwdd" onkeyup="checkpassword()" class="form-control spac" placeholder="确认密码" aria-label="Username" aria-describedby="addon-wrapping">
+                            <span style="color:red" id="conpwd"></span>
+                            <div class="input-group mb-3" style="margin-top: 13px;">
+                                <input type="text" id="resetyzm" value="" class="logintext" placeholder="请输入验证码" style="width:170px" />
+                                <input type="button" value="发送验证码" id="btnn" style="width:130px;border:0px" onclick="ResetCheckname()" />
+                            </div>
+                            <span id="msgss"></span>
+                            <button id="tijiao" class="btn btn-primary" onclick="submitresetpwd()">提交</button>
+                            <a href="#" id="tiaozhuan">立即登录</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+@* 密码登录以及重置密码 *@
+<script>
+
+    @* 检查两次输入的密码是否一致 *@
+    function checkpassword() {
+        var password = document.getElementById("resetpwd").value;
+        var repassword = document.getElementById("resetpwdd").value;
+
+        if (password == repassword) {
+            $("#conpwd").html("<font color='blue'>两次密码输入一致</font>");
+
+        } else {
+            $("#conpwd").html("<font color='red'>两次密码输入不一致!</font>");
+        }
+    }
+
+
+    @* 重置密码获取验证码事件 *@
+
+    function ResetCheckname() {
+        var spanid = document.getElementById("spanidd");//获取输入框
+        var phid = document.getElementById("resetphone");//获取输入的内容
+        var _value = phid.value;
+        // var a = phid.value;
+        // console.log(phid.value);//？无法输出在控制台
+        var regExp = new RegExp("^1[3578]\\d{9}$");
+        if (regExp.test(_value)) {
+            spanid.innerHTML = "";
+            jQuery.ajax({
+                url: "/Book/Reslidate",
+                type: "GET",
+                data: { "phone": $("#resetphone").val() },/*数据源,phone获取控制器的值和前台文本的id值*/
+                success: function (data) {
+                    if (data == "false") {
+                        $("#msg").html("<font color='red'>验证码输入错误!</font>");
+                    }
+                    else {      /*否则就代表手机号在数据库中不存在,就可以发送验证码并且实现按钮60秒倒计时*/
+                        $("#msg").html("<font></font>");
+                        var count = 60; //计时开始
+                        var t; //时间间隔种子
+                        //关于按钮
+                        var $getCodeBtn = $('#btnn');
+                        t = setInterval(function () {
+                            $getCodeBtn.val(count + "秒后重新获取");
+                            $getCodeBtn.prop('disabled', true);
+                            count--;
+                            if (count == 0) {
+                                clearInterval(t);
+                                $getCodeBtn.prop('disabled', false);
+                                $getCodeBtn.val("点击获取验证码");
+                                count = 3;
+                            }
+                        }, 1000);
+                    }
+                },
+                error: function (xhr, error, ex) {
+                    $("#msg").html("<font color='red'>系统出现异常,请联系客服!</font>");
+                }
+            });
+        } else {
+            spanid.innerHTML = "请输入正确的手机号!";
+        }
+
+    }
+
+    @*判断手机号是否存在*@
+    function resetcheckPhone() {
+        jQuery.ajax({
+            url: "/Book/Vaiphone",
+            type: "Get",
+            data: { "phone": $("#resetphone").val()},
+            success: function (data) {
+                if (data == "true")
+                    spanidd.innerHTML = "";
+                else
+                    spanidd.innerHTML = "手机号不存在!";
+            },
+            error: function (xhr, error, ex) {
+                spanid.innerHTML = "输入有误!";
+            }
+        })
+    }
+
+
+    @* 重置密码提交按钮事件 *@
+    function submitresetpwd() {
+            jQuery.ajax({
+                url: "/Book/Resetpwd",
+                type: "Get",
+                data: { "phone": $("#resetphone").val(), "pwd": $("#resetpwdd").val(), "yzm": $("#resetyzm").val() },
+                success: function (data) {
+                    if (data == "false")
+                        $("#msgss").html("<font color='red'>验证码输入有误!</font>");
+                    else
+                        $("#msgss").html("<font color='green'>修改成功!</font>");
+                },
+                error: function (xhr, error, ex) {
+                    $("#msgss").html("出现错误");
+                }
+            })
+        }
+
+
+    @*密码登录*@
+    function checkUserName() {
+        jQuery.ajax({
+            url: "/Book/Pwdlogin",
+            type: "Get",
+            data: { "phone": $("#pwdphone").val(), "pwd": $("#pwdpwd").val() },
+            success: function (data) {
+                if (data == "true")
+                    history.go(0)
+                if (data == "truen")
+                    $("#msgs").html("<font color='red'>该账号已被禁用</font>");
+                if (data=="false")
+                    $("#msgs").html("<font color='red'>账号或密码输入有误</font>");
+            },
+            error: function (xhr, error, ex) {
+                $("#msgs").html("<font color='red'>账号或密码输入有误</font>");
+            }
+        })
+    }
+</script>
+@* 登录框的显示与隐藏 *@
+<script>
+
+    $("#nav-profile").hide();
+    $("#reset").hide();
+    $("#nav-profile-tab").click(function () {
+        $("#nav-home").hide();
+        $("#nav-profile").show();
+        $("#reset").hide();
+    })
+    $("#nav-home-tab").click(function () {
+        $("#nav-profile").hide();
+        $("#nav-home").show();
+        $("#reset").hide();
+    })
+    $("#forget").click(function () {
+        $("#nav-profile").hide();
+        $("#nav-home").hide();
+        $("#reset").show();
+        $(".xx").hide();
+    })
+    $("#tiaozhuan").click(function () {
+        $("#reset").hide();
+        $(".xx").show();
+        $("#nav-profile").show();
+    })
+</script>
+@* 验证码登录 *@
+<script>
+    @*验证码登录注册提交事件*@
+    function submityzmlogin() {
+        jQuery.ajax({
+            url: "/Book/Yzmlogin",
+            type: "Get",
+            data: { "yzm": $("#yzm").val(), "phone": $("#phone").val() },
+            success: function (data) {
+                if (data == "false")
+                    $("#msg").html("<font color='red'>验证码输入有误!</font>");
+                else{
+
+                    window.location = "Index";
+                }
+
+            },
+            error: function (xhr, error, ex) {
+                $("#msg").html("<font color='red'>验证码输入有误!</font>");
+            }
+        })
+    }
+
+    @*发送验证码事件*@
+    function Checkname() {
+            var spanid = document.getElementById("spanid");//获取输入框
+            var phid = document.getElementById("phone");//获取输入的内容
+            var _value = phid.value;
+            // var a = phid.value;
+            // console.log(phid.value);//？无法输出在控制台
+            var regExp = new RegExp("^1[3578]\\d{9}$");
+            if (regExp.test(_value)) {
+                spanid.innerHTML = "";
+                jQuery.ajax({
+                    url: "/Book/Validate",
+                    type: "GET",
+                    data: { "phone": $("#phone").val() },/*数据源,phone获取控制器的值和前台文本的id值*/
+                    success: function (data) {
+                        if (data == "false") {
+                            $("#msg").html("<font color='red'>验证码输入错误!</font>");
+                        }
+                        else {      /*否则就代表手机号在数据库中不存在,就可以发送验证码并且实现按钮60秒倒计时*/
+                            $("#msg").html("<font></font>");
+                            var count = 60; //计时开始
+                            var t; //时间间隔种子
+                            //关于按钮
+                            var $getCodeBtn = $('#btn');
+                            t = setInterval(function () {
+                                $getCodeBtn.val(count + "秒后重新获取");
+                                $getCodeBtn.prop('disabled', true);
+                                count--;
+                                if (count == 0) {
+                                    clearInterval(t);
+                                    $getCodeBtn.prop('disabled', false);
+                                    $getCodeBtn.val("点击获取验证码");
+                                    count = 3;
+                                }
+                            }, 1000);
+                        }
+                    },
+                    error: function (xhr, error, ex) {
+                        $("#msg").html("<font color='red'>系统出现异常,请联系客服!</font>");
+                    }
+                });
+            } else {
+                spanid.innerHTML = "请输入正确的手机号!";
+            }
+
+        }
+</script>
+</html>

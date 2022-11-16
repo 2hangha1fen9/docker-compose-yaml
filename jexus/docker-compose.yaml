@@ -1,0 +1,11 @@
+version: "3"
+services:
+  jexus:
+    restart: always
+    container_name: jexus
+    network_mode: host
+    image: jamesqj/jexus
+    volumes:
+    - ./siteconf:/usr/jexus/siteconf
+    - ./log:/usr/jexus/log
+    - ./www:/var/www

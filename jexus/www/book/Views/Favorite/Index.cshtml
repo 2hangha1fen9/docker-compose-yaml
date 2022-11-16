@@ -1,0 +1,188 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>收藏夹</title>
+    <link rel="stylesheet" href="~/Content/favorite.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.rtl.min.css">
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
+    <style>
+        .favclic {
+            font-weight: bold;
+            border-bottom: 4px solid rgb(74, 74, 74);
+        }
+    </style>
+</head>
+<body>
+    <div class="favorite">
+        <div class="muye-header">
+            <div class="muye-header-bg"></div>
+            <div class="muye-header-content">
+                <div class="muye-header-logo">
+                    <img src="~/Content/img/index/logo.jpg" alt="">
+                    <span>长池小说网</span>|
+                    <a href="/Book/Index">首页</a>
+                </div>
+                @{
+                    var username = HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["username"]?.Value);
+                    var userphoto = HttpContext.Current.Request.Cookies["userphoto"]?.Value;
+                }
+                <div id="sunav" class="navv">
+                    <ul>
+                        <li class="sunav">
+                            <div class="user-content1">
+                                <img src="/Content/img/author/@userphoto" id="header-portrait" alt="">
+                                <p id="user-name">@username</p>
+                                <svg style="margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                </svg>
+                            </div>
+                            <span>
+                                <ul>
+                                    <li>
+                                        <a href="/Book/ExitLogin">
+                                            <img src="~/Content/img/manager/triangle.png" alt="" style="height: 15px;">
+                                            退出登录
+                                        </a>
+                                    </li>
+                                </ul>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="fav-line"></div>
+        <div class="all-center">
+            <div class="left-ico">
+                <div class="left-ico-s">
+                    <img class="left-ico-s-img" src="~/Content/img/index/logo.jpg" alt="">
+                    <div class="lvdj">LV999</div>
+                    <div class="left-ico-s-us">长池书友_<span>@ViewBag.shuy</span></div>
+                </div>
+                <div class="myfav">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+                    </svg>
+                    我的书架
+                </div>
+            </div>
+            <div class="right-ico">
+                <div class="right-ico-head">
+                    <div class="right-ico-head-left">
+                        <ul class="fav-t">
+                            <li onclick="FavBook()" id="myb" class="favclic">我的书架</li>
+                            <li onclick="ReadLog()" id="his">阅读历史</li>
+                        </ul>
+                    </div>
+                    <div class="right-ico-head-right">
+                        <a href="#">删除</a>
+                        |
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                        </svg>
+                        <a href="#">编辑</a>
+                    </div>
+                </div>
+                <div class="right-ico-content">
+                    @Html.Partial("_Index")
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function addfav() {
+        window.location ="/Book/Index"
+    }
+</script>
+<script>
+    @* 浏览历史 *@
+    function ReadLog() {
+        document.getElementById("his").classList.add('favclic');
+        document.getElementById("myb").classList.remove('favclic');
+        jQuery.ajax({
+            url: "/Favorite/History",
+            type: "Post",
+            data: {},
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".right-ico-content").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("正在紧急开发中:" + data[0])//弹出框
+            }
+        })
+    }
+
+    //我的书架
+    function FavBook() {
+
+        document.getElementById("myb").classList.add('favclic');
+        document.getElementById("his").classList.remove('favclic');
+        jQuery.ajax({
+            url: "/Favorite/MyBook",
+            type: "Post",
+            data: {},
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".right-ico-content").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("正在紧急开发中:" + data[0])//弹出框
+            }
+        })
+    }
+
+    //删除历史记录
+    function DelHis(x) {
+        jQuery.ajax({
+            url: "/Favorite/DeHis",
+            type: "Post",
+            data: {"hid":x},
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".right-ico-content").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("正在紧急开发中:" + data[0])//弹出框
+            }
+        })
+    }
+
+    //删除书架上的
+    function DelFavbook(x,y) {
+        jQuery.ajax({
+            url: "/Favorite/Defb",
+            type: "Post",
+            data: { "fid": x,"nid":y },
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".right-ico-content").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("正在紧急开发中:" + data[0])//弹出框
+            }
+        })
+    }
+</script>
+</html>

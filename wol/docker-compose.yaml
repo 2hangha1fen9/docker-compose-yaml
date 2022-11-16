@@ -1,0 +1,7 @@
+version: "3"
+services:
+  wol:
+    container_name: wol
+    image: chishin/wol-go-web
+    network_mode: host
+    restart: always

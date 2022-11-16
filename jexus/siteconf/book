@@ -1,0 +1,53 @@
+######################
+# Web Site: Default 
+########################################
+
+port=2333
+root=/ /var/www/book
+hosts=*    #OR your.com,*.your.com
+
+# User=www-data
+
+# AspNet.Workers=4  # Set the number of asp.net worker processes. Defauit is 1.
+
+# addr=0.0.0.0
+# CheckQuery=false
+NoLog=true
+
+# AppHost={cmd=dotnet /usr/local/x/app.dll; root=/usr/local/x; port=5000}
+
+# NoFile=/index.aspx
+# Keep_Alive=false
+# UseGZIP=false
+
+# UseHttps=true
+# ssl.certificate=/x/xxx.crt  #or pem
+# ssl.certificatekey=/x/xxx.key
+# ssl.protocol=TLSv1.0 TLSv1.1 TLSv1.2
+# ssl.ciphers=ECDHE-RSA-AES256-GCM-SHA384:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4:!DH:!DHE 
+# ResponseHandler.Add=Strict-Transport-Security:max-age=15768000  #for HSTS
+
+# DenyFrom=192.168.0.233, 192.168.1.*, 192.168.2.0/24
+# AllowFrom=192.168.*.*
+# DenyDirs=~/cgi, ~/upfiles
+# indexes=myindex.aspx
+
+# Deny asp ...
+# rewrite=^/.+?\.(asp|cgi|pl|sh|bash|dll)(\?.*|)$  /.deny->$1
+
+# Reproxy:
+# reproxy=/bbs/ http://192.168.1.112/bbs/
+# host.Redirect=abc.com www.abc.com  301
+# ResponseHandler.Add=myKey:myValue
+
+ResponseHandler.Add=X-Frame-Options:SAMEORIGIN
+
+# Jexus php fastcgi address is '/var/run/jexus/phpsvr'
+#######################################################
+# fastcgi.add=php|socket:/var/run/jexus/phpsvr
+
+# php-fpm listen address is '127.0.0.1:9000'
+############################################
+# fastcgi.add=php|tcp:127.0.0.1:9000
+
+

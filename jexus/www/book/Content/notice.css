@@ -1,0 +1,144 @@
+*{
+    margin: 0px;
+}
+.notice
+{
+    margin-top:35px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.notice-line
+{
+    border-bottom: 1px solid #b2aeae;
+}
+.mbox,.charpt-re,.book-re
+{
+    margin-top: 30px;
+    width: 100%;
+    height: 100%;
+}
+.inform,.charpt,.book
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 180px;
+    background: rgb(227, 227, 227);
+    border-radius: 20px;
+
+}
+.book:hover
+{
+    box-shadow: 0px 5px 10px 6px rgb(164, 164, 164);
+}
+.charpt:hover
+{
+    box-shadow: 0px 5px 10px 6px rgb(164, 164, 164);
+}
+.inform:hover
+{
+    box-shadow: 0px 5px 10px 6px rgb(164, 164, 164);
+}
+.inform-left,.charpt-left,.book-left
+{
+    margin-left: 30px;
+}
+.inform-right,.charpt-right,.book-right
+{
+    margin-right: 40px;
+}
+.n
+{
+    position:absolute;
+    color: rgb(247, 107, 0);
+    font-weight: bold;
+    margin-left: -17px;
+}
+.inform-left-text,.charpt-left-text,.book-left-text
+{
+    margin-top: -50px;
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+.inform-del img:hover
+{
+    background-color: orange;
+}
+
+
+
+/* 书籍管理 */
+.book-big, .Charpt-manager, .Author-Manager
+{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.book-big-line
+{
+    border-bottom: 1px solid #b2aeae;
+}
+
+#cate
+{
+    text-align: center;
+    margin-top: 20px;
+    height: 40px;
+    border: 1px solid green;
+}
+.search
+{
+    width: 300px;
+    height: 40px;
+    border: 1px solid green;
+}
+.search-btn
+{
+    color: white;
+    background: #43a443;
+    border: none;
+    width: 65px;
+    height: 40px;
+}
+.search-btn:hover
+{
+    background: #389a38;
+}
+a img:hover {
+    background-color: orange;
+}
+
+/* 章节管理 */
+#stat {
+    text-align: center;
+    margin-top: 20px;
+    height: 40px;
+    border: 1px solid green;
+}
+
+.charpt-search-btn {
+    color: white;
+    background: #43a443;
+    border: none;
+    width: 65px;
+    height: 40px;
+}
+
+.charpt-search-btn:hover {
+    background: #389a38;
+}
+
+#button-addon2 {
+    color: white;
+}
+
+#author-search:hover {
+    background-color: #2fd9ff;
+}
+
+tbody tr td {
+    vertical-align: middle;
+}
+#manindex a:hover {
+    background-color: #2fd9ff;
+}

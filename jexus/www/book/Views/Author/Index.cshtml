@@ -1,0 +1,117 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>成为作家</title>
+    <link rel="stylesheet" href="~/Content/author.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.rtl.min.css">
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+</head>
+<body>
+    <form action="/Author/Becomeauthor" method="post" enctype="multipart/form-data">
+        <div class="author">
+            <div class="muye-header">
+                <div class="muye-header-bg"></div>
+                <div class="muye-header-content">
+                    <div class="muye-header-logo">
+                        <img src="~/Content/img/index/logo.jpg" alt="">
+                        <span>长池小说网</span>|
+                        <a href="/Book/Index">首页</a>
+                    </div>
+                    @{
+                        var username = HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["username"]?.Value);
+                        var userphoto = HttpContext.Current.Request.Cookies["userphoto"]?.Value;
+                    }
+                    <div id="sunav" class="navv">
+                            <ul>
+                                <li class="sunav">
+                                    <div class="user-content1">
+                                        <img src="/Content/img/author/@userphoto" id="header-portrait" alt="">
+                                        <p id="user-name">@username</p>
+                                        <svg style="margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                        </svg>
+                                    </div>
+                                    <span>
+                                        <ul>
+                                            <li>
+                                                <a href="/Book/ExitLogin">
+                                                    <img src="~/Content/img/manager/triangle.png" alt="" style="height: 15px;">
+                                                    退出登录
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+            </div>
+            <div class="author-area-wrap">
+                <div class="author-area">
+                    <div class="become-author">
+                        <div style="margin-top:30px">
+                            <div class="become-author-tip">
+                                <img class="become-author-tip-img" src="~/Content/img/author/beauthor.jpg" alt="">
+                                <div>
+                                    <div class="become-author-tip-title">
+                                        欢迎成为长池小说作家，快来填写信息～
+                                    </div>
+                                    <div class="become-author-tip-desc">
+                                        1.作者信息会同步更新到长池小说官网； 2.优质的头像、笔名和简介，能够让读者更快记住你
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="byte-row serial-form-item author-info-avatar byte-form-item byte-form-layout-horizontal">
+                                <div style="width:112px;margin-left: -20px;" class="byte-form-label-item byte-form-label-item-left byte-col byte-col-0.5">
+                                    <label><strong>*</strong> 作家头像</label>
+                                </div>
+                                <div class="byte-upload">
+                                    <img id="photo" src="~/Content/img/index/logo.jpg" />
+                                    <input ID="img"  type="hidden" />
+                                    <input ID="file" type="file" name="img" onchange="show()" />
+                                </div>
+                            </div>
+                            <div class="byte-row serial-form-item  byte-form-item byte-form-layout-horizontal">
+                                <div class="byte-form-label-item byte-form-label-item-left byte-col byte-col-0.5" style="width: 112px;">
+                                    <label><strong>*</strong> 笔名</label>
+                                </div>
+                                <div class="byte-form-item-wrapper byte-col byte-col-0.5" style="width: 640px;margin-left: 41px;">
+                                    <input maxlength="10" name="auname" required="required" placeholder="请勿使用特殊符号或有明显营销推广意图的名称" class="byte-input byte-input-size-default" value="">
+                                </div>
+                            </div>
+                            <div class="byte-row serial-form-item  byte-form-item byte-form-layout-horizontal">
+                                <div class="byte-form-label-item byte-form-label-item-left byte-col byte-col-0.5" style="width: 112px;">
+                                    <label><strong>*</strong> 作家简介</label>
+                                </div>
+                                <div class="byte-form-item-wrapper byte-col byte-col-0.5" style="width: 640px;margin-left: 20px;">
+                                    <input maxlength="10" name="content" required="required" placeholder="10-30字，内容完整通顺，请勿使用特殊符号，展示个人特色，写作经验，创作方向等" class="byte-input byte-input-size-default" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" class="beau" value="成为作家" />
+                    </div>
+                </div>
+            </div>
+            <div class="author-footer">
+                <div class="author-footer-explain">© 2022 重庆加多吉文化有限公司</div>
+            </div>
+        </div>
+    </form>
+</body>
+<script>
+
+    function show() {
+        $("#photo").attr("src", URL.createObjectURL(document.getElementById("file").files[0]))
+        $("#img").val($("#file").val())
+    }
+</script>
+</html>

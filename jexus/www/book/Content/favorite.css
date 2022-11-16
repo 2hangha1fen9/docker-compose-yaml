@@ -1,0 +1,433 @@
+*{
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+body a
+{
+    text-decoration: none;
+    color: black;
+}
+.author {
+    height: 100%;
+}
+
+.muye-header {
+    background-color: #fcfcfc;
+    width: 100vw;
+    min-width: 1050px;
+    height: 105px;
+    margin-top: -2px;
+    margin-left: calc((100% - 100vw) / 2);
+}
+.muye-header-bg {
+    background: url("../Content/img/author/header-bj.jpg");
+    background-size: cover;
+    max-width: 1440px;
+    margin: 0 auto;
+    height: 105px;
+}
+.muye-header-content {
+    position: relative;
+    margin: 0 auto;
+    width: 1050px;
+    height: 100%;
+}
+.muye-header-logo {
+    align-items: center;
+    display: flex;
+    position: absolute;
+    bottom: 125px;
+    left: -20px;
+    width: 250px;
+    height: 60px;
+    cursor: pointer;
+}
+.muye-header-logo img{
+    width: 40px;
+}
+.muye-header-logo span{
+    font-size: 28px;
+    font-family:KaiTi;
+    margin-left: -4px;
+}
+.muye-header-logo a{
+    margin-left: 30px;
+}
+.muye-header-logo a:hover{
+    color: orange;
+    font-weight: bold;
+}
+/* 右边头部 */
+.user-content {
+    align-items: center;
+    display: flex;
+    position: absolute;
+    bottom: 125px;
+    right: 15px;
+    height: 60px;
+    cursor: pointer;
+}
+.user-content img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,.4);
+}
+.user-content span {
+    white-space: nowrap;
+    font-size: 14px;
+    margin: 0 4px 0 10px;
+    position: relative;
+    top: -1px;
+}
+
+.fav-line
+{
+    height: 30px;
+    background: #f3f3f3;
+}
+
+.all-center
+{
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+}
+.left-ico
+{
+    border-radius: 8px;
+    text-align: center;
+    margin-right: -120px;
+    height: 230px;
+    background-color: rgb(252 252 252);
+    width: 220px;
+}
+.left-ico-s
+{
+    border-radius: 8px;
+    height: 100px;
+    background-color: rgb(252 252 252);
+    width: 220px;
+}
+.right-ico
+{
+    border-radius: 8px;
+    width: 1000px;
+    height: 800px;
+    background-color: rgb(252 252 252);
+}
+.left-ico-s-img
+{
+    height: 60px;
+    border-radius: 50%;
+    margin-top: 20px;
+}
+.lvdj
+{
+    color: white;
+    font-size: 10px;
+    width: 40px;
+    line-height: 18px;
+    height: 18px;
+    background: #47b491;
+    border-radius: 4px;
+    margin-top: 3px;
+}
+.left-ico-s-us
+{
+    margin-top: 18px;
+    font-weight: bold;
+}
+.myfav
+{
+    cursor: pointer;
+    width: 220px;
+    height: 60px;
+    border-radius: 0px 0px 10px 10px;
+    font-weight: bold;
+    background: #4fbd7c;
+    margin-top: 75px;
+    line-height: 60px;
+}
+.myfav:hover
+{
+    transition: 0.1s;
+    background: #63d291;
+}
+.right-ico-head
+{
+    border-radius: 5px 5px 0px 0px;
+    border-bottom: 2px solid rgb(227 227 227);
+    display: flex;
+    width: 1000px;
+    height:70px;
+}
+ul li:hover
+{
+    color: orange;
+}
+ul li
+{
+    cursor: pointer;
+    list-style: none;
+}
+.fav-t
+{
+    margin-top: 36px;
+    display: flex;
+    font-size: 18px;
+}
+.right-ico-head-left
+{
+    width: 300px;
+}
+.right-ico-head-right
+{
+    cursor: pointer;
+    text-align: right;
+    padding-top: 36px;
+    width: 800px;
+}
+
+/* 书 */
+.right-ico-content
+{
+    display: flex;
+    flex-direction: column;
+}
+.muye-stack-book-list {
+    display: flex;
+    margin-left: -20px;
+    flex-wrap: wrap;
+}
+.muye-stack-book-list .stack-book-item {
+    margin-top: 40px;
+    width: 400px;
+    margin-left: 62px;
+    cursor: pointer;
+}
+.muye-stack-book-list .book-item-cover {
+    float: left;
+    flex: 0 0 auto;
+    width: 100px;
+    height: 130px;
+    cursor: pointer;
+}
+.muye-book-cover.is-book .book-cover-content {
+    padding-bottom: 7%;
+    box-sizing: content-box;
+}
+.muye-book-cover .book-cover, .muye-book-cover .book-cover-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.muye-book-cover {
+    position: relative;
+    display: inline-block;
+    width: inherit;
+    height: inherit;
+    overflow: visible;
+}
+.muye-book-cover .book-cover.loaded {
+    opacity: 1;
+    border-radius: 5px;
+}
+.muye-book-cover .book-cover {
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity .2s ease-in-out;
+}
+.muye-book-cover .book-cover-img {
+    width: 100%;
+    height: 100%;
+    background: transparent no-repeat 50%;
+    background-size: cover;
+    transition: all .2s ease-in;
+}
+.muye-book-cover .book-cover-img:hover
+{
+    transform: scale(1.2);
+    transition: all .2s ease-in;
+}
+
+/* 右边文字介绍 */
+.muye-stack-book-list .book-item-text {
+    position: relative;
+    margin-left: 120px;
+    height: 130px;
+    font-size: 12px;
+    line-height: 17px;
+}
+.muye-stack-book-list .book-item-text .title {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    word-wrap: normal;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.muye-stack-book-list .book-item-text .desc {
+    line-height: 17px;
+    color: #999;
+    margin-top: 5px;
+}
+.muye-stack-book-list .book-item-text .abstract {
+    line-height: 16px;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.muye-stack-book-list .book-item-text .footer {
+    color: #999;
+    position: absolute;
+    bottom: 0;
+}
+.lib-line
+{
+    height: 1px;
+    width: 100%;
+    margin-left: -20px;
+    background-color: rgb(230,232,235);
+}
+
+.stack-book-item:hover
+{
+    /* spread为5(正值会在元素的四个方向延伸阴影) */
+    box-shadow: 0px 0px 10px 10px rgb(234, 234, 234);
+}
+
+.ljyd
+{
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+    margin-top: 16px;
+    height: 34px;
+    width: 85px;
+    background-color: orange;
+}
+.sc
+{
+    margin-left: 46px;
+    font-size: 14px;
+}
+
+.stack-book-item-add .pic[data-v-3f421e28] {
+    width: 110px;
+    height: 130px;
+    margin-left: 0px;
+}
+.stack-book-item-add .pic[data-v-3f421e28] {
+    background: #f0f0f0;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.stack-book-item-add .pic img[data-v-3f421e28] {
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    margin-top: 55px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.muye-stack-book-list .stack-book-item-add {
+    margin-top: 40px;
+    width: 400px;
+    margin-left: 62px;
+    cursor: pointer;
+    display: flex;
+}
+.add-text
+{
+    color: #868686;
+    height: 130px;
+    line-height: 130px;
+    margin-left: -80px;
+}
+
+
+
+
+/*div, ul, span, li {
+    padding: 0;
+    margin: 0;
+}*/
+
+.navv {
+    height: 30px;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    bottom: 108px;
+    /* left: -20px; */
+    /* width: 250px; */
+    height: 60px;
+    cursor: pointer;
+    right: -20px;
+}
+
+.navv ul li {
+    float: left;
+    list-style-type: none;
+    width: 120px;
+}
+
+.navv ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+}
+
+.navv ul li a:hover {
+}
+
+.navv li {
+    line-height: 30px;
+    text-align: center;
+}
+
+.navv ul li span {
+    display: none;
+    text-decoration: none;
+    position: absolute;
+    width: 120px;
+    margin-left: -38px;
+}
+
+.navv span ul li a {
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 5px rgb(222 221 221);
+    height: 50px;
+    line-height: 50px;
+    background-color: white;
+}
+
+.navv ul li:hover span {
+    display: block;
+    text-decoration: none;
+}
+
+#user-name {
+    display: inline-block;
+    cursor: pointer;
+}
+.user-content1 img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,.4);
+}

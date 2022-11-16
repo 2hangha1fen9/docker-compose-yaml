@@ -1,0 +1,643 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>作家专区</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.rtl.min.css">
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/workben.css">
+</head>
+<body>
+    <div>
+        <div class="muye-header">
+            <div class="muye-header-bg"></div>
+            <div class="muye-header-content">
+                <div class="muye-header-logo">
+                    <img src="~/Content/img/index/logo.jpg" alt="">
+                    <span>长池小说网</span>|
+                    <a href="/Book/Index">首页</a>
+                </div>
+                @{
+                    var username = HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["username"]?.Value);
+                    var userphoto = HttpContext.Current.Request.Cookies["userphoto"]?.Value;
+                }
+                <div id="sunav" class="navv">
+                    <ul>
+                        <li class="sunav">
+                            <div class="user-content1">
+                                <img src="/Content/img/author/@userphoto" id="header-portrait" alt="">
+                                <p id="user-name">@username</p>
+                                <svg style="margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                </svg>
+                            </div>
+                            <span>
+                                <ul>
+                                    <li>
+                                        <a href="/Book/ExitLogin">
+                                            <img src="~/Content/img/manager/triangle.png" alt="" style="height: 15px;">
+                                            退出登录
+                                        </a>
+                                    </li>
+                                </ul>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="center">
+            <div class="center-b">
+                <div class="d-flex align-items-start" style="margin-left:-30px;">
+                    <div style="width: 96px;" class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">消息通知</button>
+                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">作品管理</button>
+                        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">账号管理</button>
+                    </div>
+                    <div class="work-line"></div>
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            @* 消息通知 *@
+                            <div class="mesg-noti">
+                                <p class="message-header">消息通知</p>
+                                <div class="filter-tab-wrap">
+                                    <div class="ww mesg-all" onclick="msa(this.innerHTML)">全部</div>
+                                    <div class="shtx" onclick="sht(this.innerHTML)">审核提醒</div>
+                                    <div class="xttz" onclick="xtt(this.innerHTML)">系统通知</div>
+                                </div>
+                                <div class="message-view-wrap">
+                                    @Html.Partial("_Message")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                            @* 是否创建作品 *@
+                            <div id="usbook" class="byte-tabs byte-tabs-horizontal byte-tabs-line byte-tabs-size-default serial-tabs book-manage-tabs">
+                                @if (ViewBag.novel.Count != 0)
+                                {
+                                    foreach (var item in ViewBag.novel)
+                                    {
+                                        //有作品状态
+                                        <!-- 头 -->
+                                        <div class="byte-tabs-header-nav byte-tabs-header-nav-horizontal byte-tabs-header-size-default byte-tabs-header-nav-line">
+                                            <div class="long-book">长篇作品</div>
+                                            <div class="byte-tabs-header-extra">
+                                                <div class="font-2 book-manage-header-left">
+                                                    <a href="#" onclick="adivbok()">
+                                                        <div class="font-2 hoverup">
+                                                            创建新书
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                                            </svg>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        @* 下面部分 *@
+                                        <div class="long-article-table-item">
+                                            <div class="home-book-item">
+                                                <div class="book-item-info">
+                                                    <div class="stack-book-item">
+                                                        <!-- 左边图片 -->
+                                                        <div class="muye-book-cover book-item-cover is-book has-hover">
+                                                            <div class="book-cover-content">
+                                                                <div class="book-cover loaded">
+                                                                    <img src="~/Content/img/bookcover/@item.Photo" class="book-cover-img" alt="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- 右边文字 -->
+                                                        <div class="book-text">
+                                                            <div class="hoverup">@item.Title</div>
+                                                            <div class="property">@(item.Progress==1? "连载中" : "已完结")</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="info-right">
+                                                        <div class="right-infos">
+                                                            <div class="right-info font-2">
+                                                                <span class="right-info-number font-1">@Math.Round(@item.NSize, 2).ToString()</span>万字
+                                                            </div>
+                                                            <span style="color: rgb(190, 190, 190);">|</span>
+                                                            <div class="right-info font-2">
+                                                                <span class="right-info-number font-1">@item.Csort</span>章
+                                                            </div>
+                                                        </div>
+                                                        <div class="right-btns" style="margin-top: 36px;">
+                                                            @if (item.Progress == 1)
+                                                            {
+                                                                <a href="/Percrea/ApplyFinsh/?nid=@item.NovelID">
+                                                                    <button class="xx byte-btn byte-btn-default byte-btn-size-default byte-btn-shape-square serial-button button-list-more right-btns-more" type="button">
+                                                                        <span style="color: #706e6e;">申请完结</span>
+                                                                    </button>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button class="xx byte-btn byte-btn-default byte-btn-size-default byte-btn-shape-square serial-button button-list-more right-btns-more" type="button">
+                                                                    <span style="color: #706e6e;">已完结</span>
+                                                                </button>
+                                                            }
+                                                            <a href="#" onclick="charpths(@item.NovelID)">
+                                                                <button class="xx byte-btn byte-btn-default byte-btn-size-default byte-btn-shape-square serial-button right-btn" type="button">
+                                                                    <span style="color: #706e6e;">章节管理</span>
+                                                                </button>
+                                                            </a>
+                                                            @if (item.Progress == 1)
+                                                            {
+                                                                <a target="_blank" href="/Writer/?nid=@item.NovelID">
+                                                                    <button class="yy" type="button">
+                                                                        <span>创建章节</span>
+                                                                    </button>
+                                                                </a>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="book-tip-step">
+                                                    <div class="book-tip-step-title font-3">
+                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px; margin-top: 2px;"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.8453 12.6509C14.4636 11.629 15.5385 9.82466 15.5385 7.76923C15.5385 4.58297 12.9555 2 9.76923 2C6.58297 2 4 4.58297 4 7.76923C4 9.82389 5.07409 11.6277 6.69141 12.6498V13.9231C6.69141 14.5603 7.208 15.0769 7.84525 15.0769H11.6914C12.3287 15.0769 12.8453 14.5603 12.8453 13.9231V12.6509Z" fill="url(#paint0_linear_1711_49388)"></path><rect x="7.84375" y="15.8457" width="3.84615" height="1.4" rx="0.7" fill="black" fill-opacity="0.4"></rect><rect x="7.84375" y="15.8457" width="3.84615" height="1.4" rx="0.7" fill="url(#paint1_linear_1711_49388)"></rect><path d="M9.76983 12.7703V9.69336M9.76983 9.69336H11.5006M9.76983 9.69336H8.03906" stroke="#FBFBFB" stroke-width="1.15385" stroke-linecap="round" stroke-linejoin="round"></path><defs><linearGradient id="paint0_linear_1711_49388" x1="-0.177556" y1="6.62349" x2="9.39474" y2="18.5679" gradientUnits="userSpaceOnUse"><stop stop-color="#FFB24E"></stop><stop offset="1" stop-color="#FF7638"></stop></linearGradient><linearGradient id="paint1_linear_1711_49388" x1="6.45123" y1="16.3407" x2="6.95818" y2="18.3102" gradientUnits="userSpaceOnUse"><stop stop-color="#FFB24E"></stop><stop offset="1" stop-color="#FF7638"></stop></linearGradient></defs></svg>
+                                                        <span class="book-tip-step-message book-tip-step-message-collapsed" style="width: 706px;">作品小贴士：点击「创建章节」发布章节内容吧，期待你的好作品</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    @* 无作品的状态 *@
+                                    <div class="book-null">
+                                        <div class="book-null-img">
+                                            <img class="book-null-img-crea" src="~/Content/img/author/book-null.jpg" alt="">
+                                        </div>
+                                        <div class="byte-empty-description">还没有创建过书本</div>
+                                        <div class="crea-book">
+                                            <button id="null-crea" onclick="ncrea()" class="crea-btn">立即创建</button>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+
+                            <!-- 章节管理 -->
+                            <div class="charpt-man">
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item" role="presentation" style="margin-left:-15px;">
+                                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home">章节管理</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation" style="margin-left:-620px;">
+                                        <button onclick="cgfresh()" class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" >草稿箱</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                        <div class="charpt-select">
+                                            <select name="" id="volumn">
+                                                <option value="第一卷:默认">第一卷:默认</option>
+                                            </select>
+                                            <select name="" id="charpt-clas" onchange="shstate()">
+                                                <option value="0">全部</option>
+                                                <option value="1">已发布</option>
+                                                <option value="2">审核中</option>
+                                                <option value="4">已禁用</option>
+                                                <option value="3">审核不通过</option>
+                                            </select>
+                                            <button id="edit-sub">编辑分卷</button>
+                                            <button id="crea-charpt" onclick="creac()">新建章节</button>
+
+                                        </div>
+                                        <div class="tczj">
+                                            @Html.Partial("_Table")
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                        <div class="tccg">
+                                            @if (ViewBag.dbug == 222)
+                                            {
+                                                @Html.Partial("_Tablec")
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* 创建作品 *@
+                            <form action="/Percrea/creabook" method="post" enctype="multipart/form-data">
+                                <div class="crea-all">
+                                    <div class="create-back-wrap font-1">
+                                        <div onclick="retb()" class="cursor-wrap" style="margin-left: 0px;">
+                                            <span class="icon-left tomato-left"><</span>
+                                            <span class="crrate-title">创建作品</span>
+                                        </div>
+                                        <a href="https://fanqienovel.com/docs/8231/108361/" target="_blank" style="margin-right: 0px;">
+                                            <div class="title-label font-2">
+                                                <div class="font-2 hoverup">
+                                                    审核规则
+                                                    <span class="title-label-icon tomato-circle-right"></span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <div class="create-container">
+                                            <div class="left-cover-container">
+                                                <div class="cover-image">
+                                                    <img id="photo1" class="hidden" crossorigin="anonymous" src="~/Content/img/author/fengmian.jpg">
+                                                </div>
+                                                <input id="file1" type="file" name="img1" onchange="show1()" style="margin-top: 13px;width: 75px;">
+                                                <input ID="img1" type="hidden" />
+                                            </div>
+                                            <div class="byte-form">
+                                                <div class="byte-row input-hint byte-form-item byte-form-layout-horizontal">
+                                                    <div class="byte-form-label-item byte-col byte-col-3">
+                                                        <label><strong style="color: red;">*</strong> 书本名称</label>
+                                                    </div>
+                                                    <input name="bname" required="required" maxlength="15" style="border:2px solid #999999;" placeholder="请输入作品名称" class="byte-input byte-input-size-default" value="">
+                                                </div>
+                                                <div class="byte-form-label-item byte-col byte-col-3" style="text-align: left;width: 678px;margin-top: 20px;">
+                                                    <div class="byte-form-label-item byte-col byte-col-3" style="text-align: left;">
+                                                        <label><strong style="color: red;">*</strong>目标读者</label>
+                                                    </div>
+                                                    <div class="mbdz">
+                                                        <input class="condition-item" type="radio" name="sex" value="男" checked="checked"><span class="item-span1">男频</span>
+                                                        <input class="condition-item" type="radio" name="sex" value="女"><span class="item-span">女频</span>
+                                                    </div>
+                                                </div>
+                                                <div class="byte-row cate-wrap byte-form-item byte-form-layout-horizontal" style="margin-top:20px">
+                                                    <div class="byte-form-label-item byte-col byte-col-3" style="text-align: left;">
+                                                        <label><strong style="color: red;">*</strong>作品标签</label>
+                                                    </div>
+                                                    <div class="flbq">
+                                                        <select class="se" name="cate" id="">
+                                                            @foreach (var item in ViewData["cate"] as List<Book.Models.Categories>)
+                                                            {
+                                                                <option value="@item.CateID">@item.CateName</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="byte-row textarea byte-form-item byte-form-layout-horizontal" style="margin-top: 13px;">
+                                                    <div class="byte-form-label-item byte-col byte-col-3" style="text-align: left;">
+                                                        <label><strong style="color: red;">*</strong>作品简介</label>
+                                                    </div>
+                                                    <div class="nrjj">
+                                                        <textarea name="cont" minlength="50" required="required" class="byte-textarea error" placeholder="请输入50-500字以内的作品简介，不可出现低俗、暴力、血腥等不符合法律法规的内容" style="resize: none; overflow: auto; min-height: 204px; max-height: 204px;"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="byte-row byte-row-flex byte-row-flex-align-start byte-row-flex-justify-end serial-row " style="margin-top: 53px; margin-right: 4px; padding-bottom: 202px;">
+                                        <button gutter="0" class="byte-btn byte-btn-default byte-btn-size-default byte-btn-shape-square serial-button" type="button" style="width: 90px; border: none; background-color: rgb(246, 246, 246); color: rgb(164, 164, 164); border-radius: 16px; margin-right: 20px; padding: 0px;">
+                                            <span>取消</span>
+                                        </button>
+                                        <input id="crea-btn" gutter="0" value="立即创建" class="byte-btn byte-btn-primary byte-btn-size-default byte-btn-shape-square serial-button" type="submit" style="padding: 0px;">
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                            @* 账号管理 *@
+                            <form action="/Percrea/skep" method="post" enctype="multipart/form-data">                          
+                                <div class="user-info">
+                                    <div class="user-info-item">
+                                        <div class="user-info-title">
+                                            <span>个人信息</span>
+                                        </div>
+                                        <div class="user-info-line">
+                                            <label>头像</label>
+                                            <div class="user-info-line-img" style="display: list-item;">
+                                                <img id="photo" src="~/Content/img/author/@ViewBag.user.Photo" />
+                                                <input ID="img" type="hidden" />
+                                                <input ID="file" name="img" style="width: 74px;" type="file" value="上传头像" onchange="show()" />
+                                            </div>
+                                        </div>
+                                        <div class="user-info-line">
+                                            <label style="margin-left: 0px;">笔名</label>
+                                            <div class="user-info-line-text">
+                                                <span id="sp-user">@ViewBag.user.UserName</span>
+                                                <input id="in-user" name="uname" maxlength="10" class="byte-input byte-input-size-default" value="">
+                                            </div>
+                                        </div>
+                                        <div class="user-info-line">
+                                            <label>作者介绍</label>
+                                            <div class="user-info-line-text">
+                                                <span id="sp-intr">@ViewBag.user.SelfINfo</span>
+                                                <input id="in-intr" name="ucont" maxlength="30" placeholder="内容完整通顺，请勿使用特殊符号，展示个人特色，写作经验，创作方向等。" class="byte-input byte-input-size-default" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-info-item">
+                                        <div class="user-info-title">联系方式</div>
+                                        <div class="user-info-line">
+                                            <label>手机号</label>
+                                            <div class="user-info-line-text">
+                                                <span class="js-ph">@ViewBag.user.Phone</span>
+                                            </div>
+                                        </div>
+                                        <div class="user-info-line">
+                                            <label>QQ号</label>
+                                            <div class="user-info-line-text">
+                                                <span id="sp-qq">@(ViewBag.user.QQ==null?"未填写": ViewBag.user.QQ)</span>
+                                                <input id="in-qq" name="uqq" class="byte-input byte-input-size-default" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-info-btns">
+                                        <button onclick="switchshow()" id="upda" class="byte-btn byte-btn-primary byte-btn-size-default byte-btn-shape-square serial-button" type="button">
+                                            <span>修改信息</span>
+                                        </button>
+                                        <input onclick="switchkeep()" value="保存" id="keep" class="byte-btn byte-btn-primary byte-btn-size-default byte-btn-shape-square serial-button" type="submit" />
+                                    </div>
+                                </div>                          
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="author-footer">
+            <div class="author-footer-explain">© 2022 重庆加多吉文化有限公司</div>
+        </div>
+    </div>
+</body>
+
+@* 草稿 *@
+<script>
+    function cgfresh() {
+
+        jQuery.ajax({
+            url: "/Percrea/Secg",
+            type: "Post",
+            data: { },
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".tccg").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("失败:" + data[0])//弹出框
+            }
+        })
+    }
+</script>
+
+@* 个人头像信息显示 *@
+<script>
+    @* 图片实时显示 *@
+    function show() {
+        $("#photo").attr("src", URL.createObjectURL(document.getElementById("file").files[0]))
+        $("#img").val($("#file").val())
+    }
+    function show1() {
+        $("#photo1").attr("src", URL.createObjectURL(document.getElementById("file1").files[0]))
+        $("#img1").val($("#file1").val())
+    }
+</script>
+<!-- 个人信息显示隐藏 -->
+<script>
+    $("#keep").hide();
+    $("#file").hide();
+    $("#in-user").hide();
+    $("#in-intr").hide();
+    $("#in-qq").hide();
+
+    function show() {
+        $("#photo").attr("src", URL.createObjectURL(document.getElementById("file").files[0]))
+        $("#img").val($("#file").val())
+    }
+    //修改跟取消按钮
+    function switchshow() {
+
+        document.getElementById("in-user").value = document.getElementById("sp-user").innerHTML;
+        document.getElementById("in-intr").value = document.getElementById("sp-intr").innerHTML;
+        document.getElementById("in-qq").value = document.getElementById("sp-qq").innerHTML;
+        $("#file").show();
+        $("#in-user").show();
+        $("#in-intr").show();
+        $("#in-qq").show();
+
+        $("#sp-user").hide();
+        $("#sp-qq").hide();
+        $("#sp-intr").hide();
+        $('.user-info-line-img').css({
+            width: 754
+            // 把多个样式同时修改，使用对象的方法
+        })
+        $('.js-ph').css({
+            width: 732
+            // 把多个样式同时修改，使用对象的方法
+        })
+        $("#keep").show();
+        $("#upda").hide();
+    }
+
+    function switchkeep() {
+
+
+        document.getElementById("sp-user").innerHTML = document.getElementById("in-user").value;
+        document.getElementById("sp-intr").innerHTML = document.getElementById("in-intr").value;
+        document.getElementById("sp-qq").innerHTML = document.getElementById("in-qq").value;
+        $("#sp-qq").show();
+        $("#sp-intr").show();
+        $("#sp-user").show();
+
+
+        $("#file").hide();
+        $("#in-intr").hide();
+        $("#in-qq").hide();
+        $("#in-user").hide();
+
+        $("#keep").hide();
+        $("#upda").show();
+        $('.user-info-line-img').css({
+            width: 340
+            // 把多个样式同时修改，使用对象的方法
+        })
+        $('.js-ph').css({
+            width: 340
+            // 把多个样式同时修改，使用对象的方法
+        })
+    }
+</script>
+@* 添加新书 *@
+<script>
+
+    $(".crea-all").hide();
+    function adivbok()
+    {
+        $("#usbook").hide();
+        $(".crea-all").show();
+    }
+    function ncrea() {
+        $(".book-null").hide();
+        $(".crea-all").show();
+    }
+
+    function retb() {
+        if (@ViewBag.novel.Count!= 0) {
+
+            $("#usbook").show();
+            $(".crea-all").hide();
+            $(".charpt-man").hide();
+        }
+        else {
+            $(".book-null").show();
+            $(".crea-all").hide();
+            $(".charpt-man").hide();
+        }
+    }
+
+    @*创建新书按钮*@
+
+
+</script>
+
+@* 章节以及消息通知 *@
+<script>
+
+    //审核状态局部刷新
+    function shstate() {
+        var se = $("#charpt-clas option:selected").val();
+        jQuery.ajax({
+            url: "/Percrea/Shstate",
+            type: "Post",
+            data: { "stat": se},
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".tczj").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("失败:" + data[0])//弹出框
+            }
+        })
+    }
+
+    $(".charpt-man").hide();
+
+    function selectFirst() {
+        let btn = document.getElementById("pills-home-tab")
+        let tab = new bootstrap.Tab(btn);
+        tab.show();
+
+        //let btnc = document.getElementById("pills-profile-tab")
+        //let tabc = new bootstrap.Tab(btnc);
+        //tabc.show();
+    }
+    
+    function charpths(x)
+    {
+        $("#usbook").hide();
+        $(".charpt-man").show();
+        $(".crea-all").hide();
+
+        selectFirst();
+        jQuery.ajax({
+            url: "/Percrea/Cman",
+            type: "Post",
+            data: { "nid": x },
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".tczj").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("失败:" + data[0])//弹出框
+            }
+        })
+    }
+    function retcrebook() {
+        $("#usbook").show();
+        $(".charpt-man").hide();
+        $(".crea-all").hide();
+    }
+    //创建章节
+    function creac() {
+        window.open("/Writer/Index");
+    }
+
+    //创建草稿
+    function creadraft() {
+        window.open("/WriteDraft/Index");
+    }
+
+    $(".charpt-show-content").hide();
+
+    function msa(x) {
+        $('.mesg-all').addClass('ww');
+        $('.shtx').removeClass('ww');
+        $('.xttz').removeClass('ww');
+
+        jQuery.ajax({
+            url: "/Percrea/Msg",
+            type: "Post",
+            data: { "stat": x },
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".message-view-wrap").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("正在开发中")//弹出框
+            }
+        })
+    }
+    function sht(x) {
+        $('.shtx').addClass('ww');
+        $('.mesg-all').removeClass('ww');
+        $('.xttz').removeClass('ww');
+        jQuery.ajax({
+            url: "/Percrea/Msg",
+            type: "Post",
+            data: { "stat": x },
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".message-view-wrap").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("正在开发中")//弹出框
+            }
+        })
+    }
+    function xtt(x) {
+        $('.xttz').addClass('ww');
+        $('.mesg-all').removeClass('ww');
+        $('.shtx').removeClass('ww');
+        jQuery.ajax({
+            url: "/Percrea/Msg",
+            type: "Post",
+            data: { "stat": x },
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                $(".message-view-wrap").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("正在开发中")//弹出框
+            }
+        })
+    }
+</script>
+</html>

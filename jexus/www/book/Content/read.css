@@ -1,0 +1,306 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#app
+{
+    height: 100%;
+}
+#app>div
+{
+    height: 100%;
+}
+.muye-reader {
+    background-color: #ded9c5;
+    color: #462e0b;
+    height: 100%;
+}
+/* 退出按钮 */
+.muye-reader-exit {
+    right: 50%;
+    transform: translateX(-469px);
+    width: 56px;
+    height: 40px;
+    border-radius: 4px 0 0 4px;
+    background: rgba(70,46,11,.12) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA5CAYAAABqMUjBAAAAAXNSR0IArs4c6QAABM1JREFUaAXtm09sFFUcx3+/N7tIAIkYGmIaVIxI48WDXuTIiQMJHCAkEg/ogf4J65Yi5WKEcGkVaC3ptlwgxOABPcjNk0e8SEyIMQhESAgxhGpJQYLuzvv5+y2d6czszO4MzJuZlE6zmffezPx+38+8t9vf+80bhIy302PVV+g/7CZFq9J2jRof4jK6s29w/M8o2xh1IM32Wu3wGnrw6BN29gERbUzTdpgtRLxOAN/giyu+6u8fmfWeYxx4+ovKVk3wNYOu9TrOoszgMwrhw95DEz84/owC10arOwDs74jAchxmvUcEG8Da2T88/r34NgY8eeLAeqzXr/LQWpE1ZNAfQz6icrlnYOjk7VLwYFp1bDSOBmHZ8WNANc23+RIPt3tp+XLs8NemCwg2A+le9r3cbeebLnq4/pGRHr5w4ciye3/8zUC02nEKiPdLVvn9fQdPXHXbDBVOHx/qadj1n4DopQUXONf1xstdaqEhvdLMzdkNPlg2jUAjWcAKhfhRhKN+IlotuowAKwvW+Z1xTZUut7QZbCBL/Rw0L7qMABNhi13u4UZQgMl6mD/R1SLMpIgi2F4CLkIvmNSw1MMm724RbCeOtKZODnZTXb+LZXW578DYnSJAJNGQaEhPf1nZruv270T6ouwnRyqbkzgrwrmxgZuwmr7lcG1lU7jsEQaLAJFEQyxgB5aneWWfcYI5X32+gqRbhnpYW9i1pts6AkfCAt5VL6hjYQJ5wn1dIdacY1KWNqee574tcDtYq0Rb+gbHb0WJ7xueGLAUviUfKUedl3V75K90J9jeg6d+6yS2KL3q1Rnaw2nAep0UqdwCvJhh5cb7gBc7rA/4eYB1gZ8XWAEuSWxs1+3znO3zBxUAf3Fealbb8OvkyH4jyT4REHfj/DLx3xUsw96+oVO/xL0ueJ6SiYAbLnqOIuADrvZwdJU7rMgSHZx6fYfqcNYjM3FRyayHU6j/BK9k468G24pQJ8TXnkWHkimepWAPD5m63xD5fsH9x3Ks0bP1cDPS6v104iL/cO3SPBtqmSAAPOQc5DnO+M3kiMmDkDSQdcV5RvS0WtzQsg30KtK4U2LnOOHk0wrJ6jrfsBVopXBXyPBeZzfwx+nj+9/OSpgpPz5gcbLYoVuAFzt0KHBa0Pz0f6N8xF5RtkhgEdhpeE+NVV+PApkarUzamq7JR8pR52Xd3hZYxLSD1v/qz8IES69qon7nmJSL0tMdgdtCIyw88HboeM8P6bo91WYxrC14Thb1WMAixOlpNwyVcJRgLAuRafqIDexCl61NiGq74v3A4YlLaYrJwpYbacV1Nv94pSXvHPf6vM9L1MN5i03D/xJwGnexyDaWerjIvZOGNiM93JysB9RxSirxf4SAiUTVMH+iywgwZzrvBtWhrd8Ltpmsh/kTXUaA125Yc5MXG/qeHWukYVkDaRLSsS1+xJ9Tf7LHOdFlLAVbG62c4dWte71O2Vkuq2nngc9wZPixse8VlUqf83rp3ZzudddLc3k5L+2tcgxe5XJmG99oXi9dOiIOjQxpMSyLsQEtSf/yivT8tqZ/1tHUwzKMAQuipFR5ucM2efcgD+Qn7zzgNm9q19h32AvovNXCz0v2cPub3mOGyjd4Gns+l7dagkB5v7f0P1bfJkA3YQqMAAAAAElFTkSuQmCC) no-repeat 15px;
+    background-size: 20px;
+}
+.muye-reader-exit, .muye-reader-operation {
+    position: fixed;
+    top: 65px;
+    cursor: pointer;
+}
+/* 目录 */
+.muye-reader-catalog-btn-wrap {
+    position: fixed;
+    top: 0;
+    padding-top: 65px;
+    pointer-events: none;
+}
+.muye-reader-catalog-btn-wrap, .muye-reader-operation, .muye-reader-top {
+    left: 50%;
+    transform: translateX(469px);
+}
+.muye-reader-operation.catalog, .muye-reader-opr-btn.catalog {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAUCAYAAACXtf2DAAAAAXNSR0IArs4c6QAAAF1JREFUOBFj9DUWlPv595ctw9//3AzUBMyMX9mZ2Q6z0MRwkEOBDv7J8MuWiZqOxmYWE8gbDEDvYJOkSAwaRBSZMaqZKiHAOJoPCIXjaD4gFELDQH40HxCMRJrnAwB3sz4yDblM1QAAAABJRU5ErkJggg==);
+}
+.muye-reader-operation, .muye-reader-opr-btn {
+    pointer-events: auto;
+    cursor: pointer;
+    background: rgba(70,46,11,.12) no-repeat 18px;
+    background-size: 12px;
+    font-size: 14px;
+    padding-left: 38px;
+    line-height: 40px;
+    width: 106px;
+    border-radius: 0 4px 4px 0;
+    transition: all .2s;
+}
+/* 内容 */
+.muye-reader-box {
+    position: relative;
+    width: 950px;
+    min-height: 100%;
+    background-color: #f9f7ef;
+    margin: 0 auto;
+    box-shadow: 0 1px 8px 0 hsl(48deg 27% 82% / 40%);
+    padding: 80px 90px;
+    transform: translateX(6px);
+}
+.muye-reader-title {
+    font-size: 24px;
+    line-height: 33px;
+    font-weight: 500;
+    margin: 0;
+}
+.muye-reader-desc {
+    margin-top: 21px;
+    line-height: 17px;
+    font-size: 12px;
+    color: rgba(70,46,11,.6);
+}
+.muye-reader-desc .desc-item:not(:last-of-type) {
+    margin-right: 60px;
+}
+
+/* 内容 */
+.muye-reader-content {
+    word-break: break-word;
+    margin-top: 57px;
+    font-size: 16px;
+    line-height: 32px;
+    text-align: justify;
+}
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* p标签间隔 */
+.muye-reader-content p {
+    margin: 16px 0 0;
+    text-indent: 2em;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+/* 按钮 */
+.muye-reader-btns {
+    padding-top: 120px;
+    text-align: center;
+}
+.muye-button.byte-btn-size-large {
+    width: 150px;
+}
+.muye-button.last {
+    color: black;
+    border: 1px solid rgb(66, 66, 66);
+}
+
+.muye-button.last:hover {
+    background-color: rgb(222, 222, 222);
+}
+.muye-button.next:hover
+{
+    background-color: #cb4000;
+}
+.muye-button.byte-btn {
+    border-radius: 4px;
+    font-size: 16px;
+    height: 40px;
+    line-height: 36px;
+}
+.byte-btn-primary:not(.byte-btn-disabled) {
+    border: 1px solid #fa6725;
+    background-color: #fa6725;
+}
+.byte-btn-size-large {
+    font-size: 14px;
+    padding: 0 20px;
+    height: 36px;
+    line-height: 34px;
+}
+.byte-btn {
+    display: inline-block;
+    position: relative;
+    outline: none;
+    border: none;
+    color: #fff;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .3s;
+    box-sizing: border-box;
+}
+[type=button], [type=reset], [type=submit], button {
+    -webkit-appearance: button;
+}
+button, select {
+    text-transform: none;
+}
+button, input {
+    overflow: visible;
+}
+button, input, optgroup, select, textarea {
+    font-family: inherit;
+    line-height: 1.15;
+    margin: 0;
+}
+.muye-reader-opr-btn {
+    font-size: 15px;
+    border: none;
+    padding-left: 1px;
+}
+
+/* 登录框 */
+
+.con {
+    margin-left: -100px;
+    height: 100%;
+}
+
+.byte-collapse-item-active, .byte-collapse-item-header {
+    border-bottom: 1px solid #e6e8eb;
+}
+
+.byte-collapse.byte-collapse-borderless > .byte-collapse-item-active > .byte-collapse-item-header {
+    border-bottom-color: transparent;
+}
+
+.byte-collapse.byte-collapse-borderless > .byte-collapse-item > .byte-collapse-item-header {
+    background-color: transparent;
+}
+
+.byte-collapse-item-active .byte-collapse-item-header {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    padding: 20px 0;
+    position: relative;
+    color: #333;
+}
+
+.byte-collapse-item-header {
+    overflow: hidden;
+    font-size: 14px;
+    padding: 16px;
+    padding-left: 44px;
+    line-height: 22px;
+    cursor: pointer;
+    background-color: #f5f6f7;
+    color: #383f38;
+    transition: all .1s ease;
+    position: relative;
+}
+
+.byte-collapse-item-header-title {
+    display: inline;
+}
+
+.byte-collapse-item-active .byte-collapse-item-header .arrow {
+    transform: translateY(-50%);
+}
+
+.byte-collapse-item-header .arrow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transition: transform .2s;
+    width: 22px;
+    height: 22px;
+    background: url(../img/rjiantou.png) no-repeat 50%;
+    background-size: 17px;
+}
+
+.byte-collapse-item-content {
+    overflow: hidden;
+    position: relative;
+    font-size: 14px;
+    line-height: 22px;
+    color: #282f38;
+    transition: all .3s ease;
+    display: none;
+}
+
+.byte-collapse-item-content {
+    transition: none;
+    position: static;
+}
+
+.byte-collapse-item-content-box {
+    padding: 12px 0 32px;
+}
+
+.chapter:first-of-type, .muye-reader-catalog-popover .muye-reader-catalog .catalog-chapters .chapter:nth-of-type(2) {
+    margin-top: 0;
+}
+
+.byte-collapse-item-content-box .chapter {
+    width: 49%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #666;
+    padding-right: 66px;
+    cursor: pointer;
+}
+
+.chapter.active {
+    font-weight: 700;
+    color: #333;
+    cursor: default;
+}
+
+.chapter-text {
+    position: relative;
+    width: 100%;
+    word-wrap: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: auto;
+    max-width: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+.muye-reader-operation.phone, .muye-reader-opr-btn.phone {
+    top: 109px;
+    background-image: url();
+}
+
+.bi {
+    margin-left: -23px;
+}
+#adhov:hover {
+    transition: 0.2ms;
+    background-color: #c7a18f;
+}

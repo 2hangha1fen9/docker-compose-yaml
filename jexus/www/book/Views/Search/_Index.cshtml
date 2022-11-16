@@ -1,0 +1,46 @@
+﻿<div class="muye-search-hint">
+    共 <span class="count">@ViewBag.count</span> 项相关的结果
+</div>
+<div class="muye-search-book-list">
+    @foreach (var item in ViewBag.list)
+    {
+        <div class="search-book-item">
+            <div class="muye-book-cover book-item-cover is-book has-hover">
+                <div class="book-cover-content">
+                    <div class="book-cover loaded" style="border-radius: 5px;">
+                        <img class="book-cover-img" src="~/Content/img/bookcover/@item.Photo" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="book-item-text">
+                <div class="title">
+                    <a href="/Detail/Index/?nid=@item.NovelID" target="_blank"  class="font-DNMrHsV173Pd4pgy">
+                        @item.Title
+                    </a>
+                </div>
+                <div class="desc">
+                    <a href="#" target="_blank">
+                        作者：
+                        <span class="font-DNMrHsV173Pd4pgy">@item.AuthorName</span>
+                    </a>
+                    <span class="span">@(item.Progress==1? "连载中" : "已完结")</span>
+                    <span class="span">100万字读完率21.01%</span>
+                </div>
+                <div class="desc abstract font-DNMrHsV173Pd4pgy">
+                    @item.Content
+                </div>
+                <div class="footer">
+                    <a id="v" class="chapter" href="/Read/Index?rid=@item.NovelID" target="_blank">
+                        最近更新：@item.Ctitle.Title
+                        <i class="muyeicon-enter"></i>
+                    </a><span>@item.LastUpdate</span>
+                </div>
+            </div>
+            <button class="byte-btn byte-btn-text byte-btn-size-large byte-btn-shape-square muye-button book-item-btn" type="button">
+                <a href="/Detail/?nid=@item.NovelID" target="_blank">书籍详情</a>
+            </button>
+        </div>
+    }
+
+</div>
+

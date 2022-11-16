@@ -1,0 +1,543 @@
+﻿@model PagedList<Book.Models.Novel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "书库";
+}
+
+<div>
+    <div class="header" style="margin-top: 0px;background-color: white;">
+        <div class="header-left">
+            <svg t="1664031973624" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2410" width="40" height="40">
+                <path d="M24.380952 866.878307V54.179894a54.179894 54.179894 0 0 1 54.179895-54.179894h93.731216a585.684656 585.684656 0 0 1 325.079366 98.607407 27.089947 27.089947 0 0 0 29.798941 0 585.684656 585.684656 0 0 1 325.079365-98.607407H945.439153a54.179894 54.179894 0 0 1 54.179895 54.179894v812.698413a54.179894 54.179894 0 0 1-54.179895 54.179894h-131.657142a458.903704 458.903704 0 0 0-254.645503 76.93545l-31.966138 21.130159a27.089947 27.089947 0 0 1-29.798941 0l-31.966138-21.130159A458.903704 458.903704 0 0 0 210.217989 921.058201H78.560847a54.179894 54.179894 0 0 1-54.179895-54.179894z" fill="#1296db" p-id="2411"></path>
+            </svg>长池小说网
+        </div>
+        <div class="header-center">
+            <a href="/Book/Index">首页</a>
+            <a href="/Library/Index" style=" font-weight: bold;border-bottom: 3px solid orange;">书库</a>
+            <a href="/Rank/Index">排行榜</a>
+            <a onclick="authorclic()">作家专区</a>
+            <a onclick="favbook()">我的书架</a>
+        </div>
+        <div class="muye-header-search">
+            <input id="sename" placeholder="请输入书名或作者名" value="">
+            <a id="asearch" href="javascript:void(0)" onclick="seabook()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+            </a>
+        </div>
+        @{
+            var username = HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["username"]?.Value);
+            var userphoto = HttpContext.Current.Request.Cookies["userphoto"]?.Value;
+            var xx = HttpContext.Current.Request.Cookies["xx"]?.Value;
+        }
+        @if (username == null)
+        {
+            <div class="user-content">
+                <button type="button" id="big-login" class="btn" data-bs-toggle="modal" data-bs-target="#verticallyCentered">
+                    登录/注册
+                </button>
+            </div>
+        }
+        else
+        {
+            <div id="sunav" class="navv">
+                <ul>
+                    <li class="sunav">
+                        <div class="user-content1">
+                            <img src="/Content/img/author/@userphoto" id="header-portrait" alt="">
+                            <p id="user-name">@username</p>
+                            <svg style="margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </div>
+                        <span style="margin-left:0px">
+                            <ul>
+                                <li>
+                                    <a href="/Book/ExitLogin">
+                                        <img src="~/Content/img/manager/triangle.png" alt="" style="height: 15px;">
+                                        退出登录
+                                    </a>
+                                </li>
+                            </ul>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        }
+    </div>
+    <div class="line"></div>
+    <div class="muye-stack">
+        <div class="muye-stack-wrap">
+            @using (Ajax.BeginForm("Index", "Library", new AjaxOptions
+            {
+                UpdateTargetId = "muye-stack-book-list",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+            }, new { id = "filter" }))
+            {
+                <!-- 头部导航分类 -->
+                <div class="muye-stack-filter-panel">
+                    <div class="filter">
+                        <span class="condition-title">读者:</span>
+                        <input class="condition-item" type="radio" name="reader" value="-1" @(TempData["reader"] == null || Convert.ToInt32(TempData["reader"]) == -1 ? "checked" : "") onclick="conditionSubmit()"><span class="item-span">默认</span>
+                        <input class="condition-item" type="radio" name="reader" value="1" @(Convert.ToInt32(TempData["reader"]) == 1 ? "checked" : "") onclick="conditionSubmit()"><span class="item-span1">男生</span>
+                        <input class="condition-item" type="radio" name="reader" value="2" @(Convert.ToInt32(TempData["reader"]) == 2 ? "checked" : "") onclick="conditionSubmit()"><span class="item-span">女生</span>
+                    </div>
+                    <div class="filter">
+                        <span class="condition-title">状态:</span>
+                        <input class="condition-item" type="radio" name="status" value="-1" @(TempData["status"] == null || Convert.ToInt32(TempData["status"]) == -1 ? "checked" : "") onclick="conditionSubmit()"><span class="item-span">默认</span>
+                        <input class="condition-item" type="radio" name="status" value="0" @(Convert.ToInt32(TempData["status"]) == 0 ? "checked" : "") onclick="conditionSubmit()"><span class="item-span">已完结</span>
+                        <input class="condition-item" type="radio" name="status" value="1" @(Convert.ToInt32(TempData["status"]) == 1 ? "checked" : "") onclick="conditionSubmit()"><span class="item-span">连载中</span>
+                    </div>
+                </div>
+                <!-- 分类 -->
+                <div class="muye-stack-filter">
+                    <input type="hidden" name="cate" value="@TempData["cate"]" id="cate" />
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-home-tab" onclick="$('#cate').val(-1);conditionSubmit()" data-bs-toggle="pill" data-bs-target="#pills-hoasdfasdme" type="button" role="tab" aria-controls="pills-home" aria-selected="true">默认</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" onclick="$('#cate').val(1);conditionSubmit()" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">都市</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-contact-tab" onclick="$('#cate').val(2);conditionSubmit()" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">玄幻</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-contactxd-tab" onclick="$('#cate').val(5);conditionSubmit()" data-bs-toggle="pill" data-bs-target="#pills-contactxd" type="button" role="tab" aria-controls="pills-contactxd" aria-selected="false">现代言情</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-contactxy-tab" onclick="$('#cate').val(4);conditionSubmit()" data-bs-toggle="pill" data-bs-target="#pills-contactxy" type="button" role="tab" aria-controls="pills-contactxy" aria-selected="false">悬疑</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-contactkh-tab" onclick="$('#cate').val(3);conditionSubmit()" data-bs-toggle="pill" data-bs-target="#pills-contactkh" type="button" role="tab" aria-controls="pills-contactkh" aria-selected="false">科幻</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-contactgd-tab" onclick="$('#cate').val(6);conditionSubmit()" data-bs-toggle="pill" data-bs-target="#pills-contactgd" type="button" role="tab" aria-controls="pills-contactgd" aria-selected="false">古代言情</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lib-line"></div>
+                <!-- 分类页面内容 -->
+
+            }
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <!-- 整个书列表 -->
+                    <div id="muye-stack-book-list">
+
+                        @Html.Partial("_Index", Model)
+
+                    </div>
+                </div>
+            </div>
+            @section scripts
+               {
+                @{ Html.RegisterMvcPagerScriptResource();}
+            }
+        </div>
+    </div>
+
+    @* 底部 *@
+    <div class="footear">
+        <div class="muye-footer-ctn">
+            <div class="muye-footer-left">
+                <img class="muye-footer-left-logo" src="~/Content/img/index/logo.jpg">
+                <span class="muye-footer-left-text">长池小说网</span>
+                <div class="muye-footer-left-divide"></div>
+                <p>
+                    © 2022 重庆加多吉文化有限公司<br>
+                    <a href="" rel="noopener noreferrer nofollow">渝ICP备2022010457号</a>|
+                    <a href="" rel="noopener noreferrer nofollow">
+                        <span class="police"></span>渝ICP备2022010457号
+                    </a>|&nbsp;渝ICP备2022010457号&nbsp;|<br>网络文化经营许可证：渝ICP备2022010457号<br>请使用者仔细阅读
+                    <a href="">《长池小说网用户协议》</a>、
+                    <a href="">《长池小说网隐私政策》</a>说明<br>广告投放：
+                    <a href="" rel="noopener noreferrer nofollow">www.wanglaoji.com</a>&nbsp;&nbsp;&nbsp;&nbsp;不良信息举报：1227244076@qq.com<br>意见建议邮箱：1227244076@qq.com&nbsp;&nbsp;&nbsp;&nbsp;版权咨询：1227244076@qq.com
+                </p>
+            </div>
+            <div class="muye-footer-right">
+                <div class="muye-footer-right-tiktok">
+                    <img src="~/Content/img/index/tikok.jpg">
+                    <div class="muye-footer-right-tiktok-desc">
+                        <span class="muye-footer-right-tiktok-desc-img"></span>
+                        <span class="muye-footer-right-tiktok-desc-text">打开抖音扫码关注官方账号</span>
+                    </div>
+                </div>
+                <div class="muye-footer-right-wechat">
+                    <img src="~/Content/img/index/gzh.jpg">
+                    <div class="muye-footer-right-wechat-desc">
+                        <span class="muye-footer-right-wechat-desc-img"></span>
+                        <span class="muye-footer-right-wechat-desc-text">扫码关注微信公众号</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@* 登录框 *@
+
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade" id="verticallyCentered" tabindex="-1" aria-labelledby="verticallyCenteredLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link xx active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">手机登录</button>
+                            <button class="nav-link xx" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">密码登录</button>
+                        </div>
+                    </nav>
+                    <!-- <h5 class="modal-title" id="verticallyCenteredLabel">Modal title</h5> -->
+                    <button type="button" style="margin:0px" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="input-group flex-nowrap">
+                            @Html.TextBox("phone", null, new { @Required = "Required", @placeholder = "请输入手机号", @id = "phone", @class = "phonenumber logintext" })
+                        </div>
+                        <p style="color: red;" id="spanid"></p>
+                        <div class="input-group mb-3" style="margin-top: 13px;">
+
+                            <input type="text" id="yzm" maxlength="6" value="" required="required" class="logintext" placeholder="请输入验证码" style="width:150px" />
+
+                            <input type="button" value="发送验证码" id="btn" style="width:130px" onclick="Checkname()" />
+                        </div>
+                        <span id="msg"></span>
+                        <div class="confirm">
+                            <span class="color-grey">登录即同意</span>
+                            <a target="_blank" href="/protocal/agreement" class="color-click">用户协议</a>
+                            <span class="color-grey">和</span>
+                            <a target="_blank" href="/protocal/privacy" class="color-click">隐私政策</a>
+                        </div>
+                        <input type="button" onclick="submityzmlogin()" name="sub" class="dlandzc" value="登录/注册" />
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="input-group flex-nowrap">
+                                <input type="text" id="pwdphone" name="pwdphone" class="form-control" placeholder="请输入手机号" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                            <div class="input-group mb-3" style="margin-top: 13px;">
+                                <input type="text" id="pwdpwd" name="pwdpwd" class="form-control" placeholder="请输入密码" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-secondary" type="button" id="forget">忘记密码</button>
+                            </div>
+                            <span id="msgs" style="color:red"></span>
+                            <div class="confirm">
+                                <span class="color-grey">登录即同意</span>
+                                <a target="_blank" href="/protocal/agreement" class="color-click">用户协议</a>
+                                <span class="color-grey">和</span>
+                                <a target="_blank" href="/protocal/privacy" class="color-click">隐私政策</a>
+                            </div>
+                            <input type="button" class="dlandzc" value="登录" onclick="checkUserName()" />
+                        </div>
+
+                    </div>
+                    <div id="reset">
+                        <h4>
+                            重置密码
+                        </h4>
+                        <input type="text" id="resetphone" onblur="resetcheckPhone()" class="form-control spac" placeholder="请输入手机号" aria-label="Username" aria-describedby="addon-wrapping">
+                        <p style="color: red;" id="spanidd"></p>
+                        <input type="password" id="resetpwd" onkeyup="checkpassword()" class="form-control spac" placeholder="请输入新密码" aria-label="Username" aria-describedby="addon-wrapping">
+                        <input type="password" id="resetpwdd" onkeyup="checkpassword()" class="form-control spac" placeholder="确认密码" aria-label="Username" aria-describedby="addon-wrapping">
+                        <span style="color:red" id="conpwd"></span>
+                        <div class="input-group mb-3" style="margin-top: 13px;">
+                            <input type="text" maxlength="6" id="resetyzm" value="" class="logintext" placeholder="请输入验证码" style="width:170px" />
+                            <input type="button" value="发送验证码" id="btnn" style="width:130px;border:0px" onclick="ResetCheckname()" />
+                        </div>
+                        <span id="msgss"></span>
+                        <button id="tijiao" class="btn btn-primary" onclick="submitresetpwd()">提交</button>
+                        <a href="#" id="tiaozhuan">立即登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* 当前页面点击触发 *@
+<script>
+
+    function conditionSubmit() {
+        $("#filter").submit()
+    }
+
+</script>
+@* 搜索 *@
+<script>
+    function seabook() {
+        var sername = $("#sename").val();
+        if (sername != "") {
+            var a = document.getElementById("asearch");
+            a.href = "/Search/?sername=" + sername;
+        }
+
+    }
+</script>
+@*作家专区以及我的书架以及退出登录*@
+<script>
+    //作家专区
+    function authorclic() {
+        var username = "@username";
+        var xx = "@xx";
+        if (username) {
+            if (xx) {
+                window.location = "/Percrea/Index";
+            }
+            else {
+                window.location = "/Author/Index";
+            }
+        }
+        else {
+            $("#big-login").click();
+        }
+    }
+    //我的书架
+    function favbook()
+    {
+        var username = "@username";
+        if (username)
+        {
+            window.location = "/Favorite/Index";
+        }
+        else
+        {
+            $("#big-login").click();
+        }
+    }
+
+    //退出登录
+    $(".exit-login").hide();
+    $(".user-content1").hover(function () {
+        //设置不透明度
+        $(".exit-login").fadeIn();
+    }, function () {
+
+        $(".exit-login").fadeOut(5000);
+    });
+</script>
+@* 密码登录以及重置密码 *@
+<script>
+
+    @* 检查两次输入的密码是否一致 *@
+    function checkpassword() {
+        var password = document.getElementById("resetpwd").value;
+        var repassword = document.getElementById("resetpwdd").value;
+
+        if (password == repassword) {
+            $("#conpwd").html("<font color='blue'>两次密码输入一致</font>");
+
+        } else {
+            $("#conpwd").html("<font color='red'>两次密码输入不一致!</font>");
+        }
+    }
+
+
+    @* 重置密码获取验证码事件 *@
+
+    function ResetCheckname() {
+        var spanid = document.getElementById("spanidd");//获取输入框
+        var phid = document.getElementById("resetphone");//获取输入的内容
+        var _value = phid.value;
+        // var a = phid.value;
+        // console.log(phid.value);//？无法输出在控制台
+        var regExp = new RegExp("^1[3578]\\d{9}$");
+        if (regExp.test(_value)) {
+            spanid.innerHTML = "";
+            jQuery.ajax({
+                url: "/Book/Reslidate",
+                type: "GET",
+                data: { "phone": $("#resetphone").val() },/*数据源,phone获取控制器的值和前台文本的id值*/
+                success: function (data) {
+                    if (data == "false") {
+                        $("#msg").html("<font color='red'>验证码输入错误!</font>");
+                    }
+                    else {      /*否则就代表手机号在数据库中不存在,就可以发送验证码并且实现按钮60秒倒计时*/
+                        $("#msg").html("<font></font>");
+                        var count = 60; //计时开始
+                        var t; //时间间隔种子
+                        //关于按钮
+                        var $getCodeBtn = $('#btnn');
+                        t = setInterval(function () {
+                            $getCodeBtn.val(count + "秒后重新获取");
+                            $getCodeBtn.prop('disabled', true);
+                            count--;
+                            if (count == 0) {
+                                clearInterval(t);
+                                $getCodeBtn.prop('disabled', false);
+                                $getCodeBtn.val("点击获取验证码");
+                                count = 3;
+                            }
+                        }, 1000);
+                    }
+                },
+                error: function (xhr, error, ex) {
+                    $("#msg").html("<font color='red'>系统出现异常,请联系客服!</font>");
+                }
+            });
+        } else {
+            spanid.innerHTML = "请输入正确的手机号!";
+        }
+
+    }
+
+    @*判断手机号是否存在*@
+    function resetcheckPhone() {
+        jQuery.ajax({
+            url: "/Book/Vaiphone",
+            type: "Get",
+            data: { "phone": $("#resetphone").val()},
+            success: function (data) {
+                if (data == "true")
+                    spanidd.innerHTML = "";
+                else
+                    spanidd.innerHTML = "手机号不存在!";
+            },
+            error: function (xhr, error, ex) {
+                spanid.innerHTML = "输入有误!";
+            }
+        })
+    }
+
+
+    @* 重置密码提交按钮事件 *@
+    function submitresetpwd() {
+            jQuery.ajax({
+                url: "/Book/Resetpwd",
+                type: "Get",
+                data: { "phone": $("#resetphone").val(), "pwd": $("#resetpwdd").val(), "yzm": $("#resetyzm").val() },
+                success: function (data) {
+                    if (data == "false")
+                        $("#msgss").html("<font color='red'>验证码输入有误!</font>");
+                    else
+                        $("#msgss").html("<font color='green'>修改成功!</font>");
+                },
+                error: function (xhr, error, ex) {
+                    $("#msgss").html("出现错误");
+                }
+            })
+        }
+
+    @* 密码登录 *@
+    function checkUserName() {
+        jQuery.ajax({
+            url: "/Book/Pwdlogin",
+            type: "Get",
+            data: { "phone": $("#pwdphone").val(), "pwd": $("#pwdpwd").val() },
+            success: function (data) {
+                if (data == "true")
+                    location.href = '/Library/Index';
+                if (data == "truen")
+                    $("#msgs").html("<font color='red'>该账号已被禁用</font>");
+                if (data == "false")
+                    $("#msgs").html("<font color='red'>账号或密码输入有误</font>");
+            },
+            error: function (xhr, error, ex) {
+                $("#msgs").html("<font color='red'>账号或密码输入有误</font>");
+            }
+        })
+    }
+</script>
+@* 验证码登录 *@
+<script>
+
+        $("#nav-profile").hide();
+        $("#reset").hide();
+        $("#nav-profile-tab").click(function () {
+            $("#nav-home").hide();
+            $("#nav-profile").show();
+            $("#reset").hide();
+        })
+        $("#nav-home-tab").click(function () {
+            $("#nav-profile").hide();
+            $("#nav-home").show();
+            $("#reset").hide();
+        })
+        $("#forget").click(function () {
+            $("#nav-profile").hide();
+            $("#nav-home").hide();
+            $("#reset").show();
+            $(".xx").hide();
+        })
+        $("#tiaozhuan").click(function () {
+            $("#reset").hide();
+            $(".xx").show();
+            $("#nav-profile").show();
+        })
+
+        @*$(function () {
+            if (@ViewBag.tx== "验证码错误!");
+            document.getElementsByClassName("retu").click()
+        });*@
+
+    @*验证码登录注册提交事件*@
+    function submityzmlogin() {
+        jQuery.ajax({
+            url: "/Book/Yzmlogin",
+            type: "Get",
+            data: { "yzm": $("#yzm").val(), "phone": $("#phone").val() },
+            success: function (data) {
+                if (data == "false")
+                    $("#msg").html("<font color='red'>验证码输入有误!</font>");
+                else {
+
+                    window.location = "/Library/Index";
+                }
+
+            },
+            error: function (xhr, error, ex) {
+                $("#msg").html("出现错误");
+            }
+        })
+    }
+
+    @*发送验证码事件*@
+    function Checkname() {
+            var spanid = document.getElementById("spanid");//获取输入框
+            var phid = document.getElementById("phone");//获取输入的内容
+            var _value = phid.value;
+            // var a = phid.value;
+            // console.log(phid.value);//？无法输出在控制台
+            var regExp = new RegExp("^1[3578]\\d{9}$");
+            if (regExp.test(_value)) {
+                spanid.innerHTML = "";
+                jQuery.ajax({
+                    url: "/Book/Validate",
+                    type: "GET",
+                    data: { "phone": $("#phone").val() },/*数据源,phone获取控制器的值和前台文本的id值*/
+                    success: function (data) {
+                        if (data == "false") {
+                            $("#msg").html("<font color='red'>验证码输入错误!</font>");
+                        }
+                        else {      /*否则就代表手机号在数据库中不存在,就可以发送验证码并且实现按钮60秒倒计时*/
+                            $("#msg").html("<font></font>");
+                            var count = 60; //计时开始
+                            var t; //时间间隔种子
+                            //关于按钮
+                            var $getCodeBtn = $('#btn');
+                            t = setInterval(function () {
+                                $getCodeBtn.val(count + "秒后重新获取");
+                                $getCodeBtn.prop('disabled', true);
+                                count--;
+                                if (count == 0) {
+                                    clearInterval(t);
+                                    $getCodeBtn.prop('disabled', false);
+                                    $getCodeBtn.val("点击获取验证码");
+                                    count = 3;
+                                }
+                            }, 1000);
+                        }
+                    },
+                    error: function (xhr, error, ex) {
+                        $("#msg").html("<font color='red'>系统出现异常,请联系客服!</font>");
+                    }
+                });
+            } else {
+                spanid.innerHTML = "请输入正确的手机号!";
+            }
+
+        }
+</script>

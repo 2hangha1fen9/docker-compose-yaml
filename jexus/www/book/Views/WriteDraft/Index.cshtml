@@ -1,0 +1,161 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>写作</title>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Content/tinymce/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="~/Content/tinymce/js/tinymce/langs/zh-Hans.js" referrerpolicy="origin"></script>
+    <script src="~/Content/tinymce/js/tinymce/plugins/wordcount/plugin.min.js"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/Content/write.css">
+
+</head>
+<body>
+    <div class="write-header">
+        <div class="a1">
+            <a href="/Percrea/Index">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                </svg>
+                @ViewBag.dntitle
+            </a>
+            <input type="hidden" id="nam" value="@ViewBag.dntitle" />
+        </div>
+        <div class="write-btn">
+            <button class="cg" onclick="cg(this.innerHTML)">@ViewBag.cg</button>
+            <button class="fb" onclick="pubs()">立即发布</button>
+        </div>
+    </div>
+    <div class="write-line"></div>
+    @if (ViewBag.xx == 1)
+    {
+        foreach (var item in ViewBag.dcont)
+        {
+            <input id="draftid" type="hidden" value="@item.DraftID" />
+            <div class="bt">
+                <div class="wx">
+                    <span>第</span>
+                    <span><input type="number" name="" required="required" min="1" id="sort" class="sort" value="@item.DSort" /></span>
+                    <span>章</span>
+                    <input type="text" name="" id="charptitle" class="charptitle" required="required" placeholder="请输入标题" value="@item.Title">
+                </div>
+            </div>
+
+            <form method="post" style="display:flex;justify-content: center;margin-top: 30px;">
+                <textarea id="mytextarea" placeholder="请输入正文">
+                    @item.DContent
+                        
+                </textarea>
+
+            </form>
+        }
+    }
+    else
+    {
+        <div class="bt">
+            <div class="wx">
+                <span>第</span>
+                <span><input type="number" name="" required="required" min="1" id="sort" /></span>
+                <span>章</span>
+                <input type="text" name="" id="charptitle" required="required" placeholder="请输入标题">
+            </div>
+        </div>
+
+        <form method="post" style="display:flex;justify-content: center;margin-top: 30px;">
+            <textarea id="mytextarea" placeholder="请输入正文">
+                        
+                        
+            </textarea>
+
+        </form>
+    }
+
+</body>
+<script>
+    //富文本框初始化设置
+    tinymce.init({
+        selector: '#mytextarea',
+        language: 'zh-Hans',
+        height: 800,
+        width: 850,
+        indentation: '20pt',
+        indent_use_margin: true,
+        plugins: "wordcount",
+        init_instance_callback: function (editor) {
+            $(editor.getContainer()).find('button.tox-statusbar__wordcount').click();  // if you use jQuery
+        }
+    });
+
+    //发布章节
+    function pubs() {
+        jQuery.ajax({
+            url: "/WriteDraft/ReleCharpt",
+            type: "Post",
+            data: { "bname": $("#nam").val(), "t": $("#sort").val(), "title": $("#charptitle").val(), "cont": tinyMCE.activeEditor.getContent() },
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                if (data == "true")
+                    alert("发布成功请待审核")//弹出框
+                else
+                    alert("正文不能少于一千字")//弹出框
+            },
+            error: function (data) {
+                alert("正在紧急开发中!")//弹出框
+            }
+        })
+    }
+
+
+    //保存草稿
+    function cg(x) {
+
+        if (x == "修改草稿") {
+            jQuery.ajax({
+                url: "/WriteDraft/Updacg",
+                type: "Post",
+                data: { "did": $("#draftid").val(), "bname": $("#nam").val(), "t": $(".sort").val(), "title": $(".charptitle").val(), "cont": tinyMCE.activeEditor.getContent() },
+                datatype: "json", //指定数据类型
+                success: function (data) //成功后的回调方法
+                {
+                    if (data == "true")
+                        alert("修改草稿成功")//弹出框
+                    else
+                        alert("正文不能少于一千字")//弹出框
+                },
+                error: function (data) {
+                    alert("正在紧急开发中!")//弹出框
+                }
+            })
+        }
+        else {
+            jQuery.ajax({
+                url: "/WriteDraft/HoldCg",
+                type: "Post",
+                data: { "bname": $("#nam").val(), "t": $("#sort").val(), "title": $("#charptitle").val(), "cont": tinyMCE.activeEditor.getContent() },
+                datatype: "json", //指定数据类型
+                success: function (data) //成功后的回调方法
+                {
+                    if (data == "true")
+                        alert("保存草稿成功")//弹出框
+                    else
+                        alert("正文不能少于一千字")//弹出框
+                },
+                error: function (data) {
+                    alert("正在紧急开发中!")//弹出框
+                }
+            })
+        }
+    }
+
+
+</script>
+</html>

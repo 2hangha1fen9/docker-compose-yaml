@@ -1,0 +1,412 @@
+*
+{
+    margin: 0px;
+    box-sizing: border-box;
+}
+/* 全局a标签 */
+body a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+}
+a :hover
+{
+    color: orange;
+}
+/* 头部 */
+.header-detail img
+{
+    max-width: 50px;
+}
+.header-detail
+{
+    z-index: 999;
+    width: 100%;
+    position:fixed;
+    background-color: white;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    white-space: nowrap;
+    height: 80px;
+}
+.header
+{
+    margin-top: -82px;
+    z-index: 999;
+    width: 100%;
+    position:fixed;
+    background-color: rgb(239, 250, 250);
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    white-space: nowrap;
+    height: 80px;
+}
+.center-img
+{
+    margin-top: 82px;
+}
+.header-left
+{
+    display: flex;
+    align-items: center;
+}
+.header-center
+{
+    text-align: center;
+}
+.header-center a
+{
+    text-decoration: none;
+    margin-left: 20px;
+}
+.user-content a
+{
+    text-decoration: none;
+}
+.muye-header-search input
+{
+    outline: none;
+    border-radius: 10px;
+    border-color: aliceblue;
+}
+.muye-header-search a
+{
+    margin-left: -25px;
+}
+/*
+主页面
+ */
+ .page
+ {
+    background-color: rgb(246, 246, 246);
+    height: 100%;
+    width: 100%;
+ }
+ .page-warp
+ {
+    display: inline-block;
+    margin-top: 86px;
+    width: 100%;
+    background-color: white;
+    height: 150px;
+ }
+ .route-trackers a:hover{
+    color: orange;
+ }
+ .route-trackers
+ {
+    margin-left: -821px;
+    width: 300px;
+    /* background-color: red; */
+ }
+ .route-trackers a
+{
+    font-size: 14px;
+    line-height: 20px;
+    color: #333;
+}
+ .page-header{
+    width: 100%;
+    height: 340px;
+    background-color: white;
+ }
+ .page-header-info
+ {
+    margin-top: 30px;
+    height: 234px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* background-color: blue; */
+ }
+ .book-img
+ {
+    margin-left: -100px;
+ }
+.book-img img
+{
+    float: left;
+    height: 234px;
+    width: 180px;
+    border-radius: 6px;
+}
+
+/* 书籍右半边部分 */
+.info
+{
+    margin-left: 40px;
+}
+
+.info-name
+{
+    padding-top: 18px;
+}
+.info-name h1
+{
+    font-size: 24px;
+}
+.info-label
+{
+    margin-top: 12px;
+    height: 22px;
+}
+.info-label-yellow,.info-label-grey
+{
+    padding: 0 7px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 4px;
+}
+.info-label-yellow{
+    color: #fdae31;
+    border: 1px solid #fdae31;
+
+}
+.info-label-grey
+{
+    margin-left: 10px;
+    color: #000;
+    border: 1px solid #000;
+    opacity: .3;
+}
+
+.info-count{
+    margin-top: 18px;
+    height: 28px;
+    overflow: hidden;
+    display: flex;
+}
+.info-count-word,.info-count-read{
+    display: flex;
+    align-items: flex-end;
+}
+.info-count-read
+{
+    margin-left: 32px;
+    position: relative;
+}
+.info-count-read .suxian
+{
+    position: absolute;
+    margin-left: -15px;
+    color: rgb(164, 164, 164);
+}
+.detail{
+    font-size: 24px;
+    line-height: 28px;
+    margin-right: 8px;
+}
+.text
+{
+    opacity: .4;
+    color: #000;
+    font-size: 12px;
+    position: relative;
+    top: -1px;
+}
+.info-last
+{
+    font-size: 14px;
+    color: #666;
+    line-height: 24px;
+    margin-top: 35px;
+    color: #000;
+}
+.info-last-time
+{
+    margin-left: 15px;
+}
+.info-btn
+{
+    margin-top: 8px;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #fa6725;
+    text-align: center;
+    border: none!important;
+    padding: 0;
+    /* position: absolute; */
+    bottom: 0;
+    left: 0;
+}
+.info-btn a
+{
+    color: #fff;
+    height: 40px;
+    line-height: 32px;
+    display: inline-block;
+    width: 100%;
+}
+/* 添加布局部分 */
+.tiaozhuan
+{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+/* 右边作者以及简介部分 */
+.author-info
+{
+    padding-left: 132px;
+}
+.author-divider
+{
+    
+    margin-left: 160px;
+    top: 6;
+    left: 0;
+    height: 210px;
+    opacity: .1;
+    background-color: #000;
+    width: 1px;
+}
+.author-img
+{
+    border-radius: 50%;
+    border: 1px solid #f1f1f1;
+    width: 70px;
+    height: 70px;
+}
+.author-name
+{
+    font-size: 22px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 12px;
+}
+.author-name-logo img
+{
+    width: 47px;
+    height: 20px;
+}
+.author
+{
+    display: flex;
+}
+.author-desc
+{ 
+    margin: 8px auto 0;
+    font-size: 12px;
+    line-height: 17px;
+    width: 174px;
+    color: rgba(0,0,0,.4);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+/* 章节部分 */
+.page-body-warp
+{
+    width: 1220px;
+    margin: 73px auto 30px;
+    padding: 0 20px;
+}
+.page-body
+{
+    padding: 40px 30px 122px;
+    border-radius: 2px;
+    box-shadow: 0 2px 10px 0 rgb(0 0 0 / 8%);
+    background-color: #fff;
+    position: relative;
+    z-index: 10;
+}
+.page-body .page-abstract-header h2, .page-body .page-directory-header h2
+{
+    font-size: 24px;
+}
+.page-body .page-abstract-header, .page-body .page-directory-header
+{
+    font-size: 24px;
+    color: rgba(0,0,0,.85);
+    height: 33px;
+    line-height: 33px;
+    position: relative;
+    font-weight: 500;
+}
+.page-body .page-abstract-header:after {
+    content: " ";
+    position: absolute;
+    top: 45px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background-color: rgba(0,0,0,.1);
+}
+.page-abstract-content
+{
+    margin: 53px auto 50px;
+    padding: 0 30px;
+    font-size: 16px;
+    line-height: 24px;
+    max-height: 72px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.directory-dot
+{
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin: 0 10px;
+    background-color: rgba(0,0,0,.85);
+    position: relative;
+    top: -4px;
+}
+.page-body .page-directory-header:after {
+    content: " ";
+    position: absolute;
+    top: 45px;
+    left: 0;
+    height: 1px;
+    width: 1120px;
+    background-color: rgba(0,0,0,.1);
+}
+.page-body .page-directory-content {
+    margin-top: 44px;
+    padding: 0 30px;
+}
+.page-body .page-directory-content .volume {
+    height: 28px;
+    line-height: 28px;
+    font-size: 20px;
+    margin-top: 56px;
+}
+.page-body .page-directory-content .chapter {
+    font-size: 0;
+}
+.page-body .page-directory-content .chapter-item {
+    margin-top: 20px;
+    width: 294px;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    margin-right: 59px;
+    font-size: 14px;
+}
+.page-body .page-directory-content .chapter-item-title {
+    color: #666;
+    max-width: 256px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+/* 章节标签的hover事件 */
+.page-body .page-directory-content .chapter-item-title:hover
+{
+    color:rgb(241, 92, 0)
+}

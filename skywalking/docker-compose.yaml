@@ -1,0 +1,29 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:7.14.2
+    ports:
+    - 9200:9200
+    environment:
+    - discovery.type=single-node
+    - TZ=Asia/Shanghai
+    - "ES_JAVA_OPTS=-Xms64m -Xmx256m"
+    restart: always
+  oap:
+    image: apache/skywalking-oap-server:8.9.1
+    ports:
+    - 11800:11800
+    - 12800:12800
+    environment:
+    - SW_STORAGE=elasticsearch
+    - SW_STORAGE_ES_CLUSTER_NODES=elasticsearch:9200
+    - TZ=Asia/Shanghai
+    - "JAVA_OPTS=-Xms64m -Xmx256m"
+    restart: always
+  ui:
+    image: apache/skywalking-ui:8.9.1
+    ports:
+    - 5050:8080
+    environment:
+    - SW_OAP_ADDRESS=http://oap:12800
+    restart: always

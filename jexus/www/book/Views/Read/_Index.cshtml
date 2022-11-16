@@ -1,0 +1,190 @@
+﻿@* 当前页面退出 *@
+<a href="/Detail/Index/?nid=@TempData["readnid"]" class="muye-reader-exit"></a>
+
+<div class="muye-reader-catalog-btn-wrap">
+    <button type="button" style="background-color: rgb(204, 197, 174); border: none; color: black;" class="muye-reader-opr-btn catalog btn btn-primary" data-bs-toggle="modal" data-bs-target="#Verticallycentered">
+        目录
+    </button>
+</div>
+<div id="adhov" style="font-size: 16px;" class="muye-reader-operation phone active" onclick="addbr()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-arrow-down" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z" />
+        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+    </svg>
+    <span id="adtext">@ViewBag.adbook</span>
+</div>
+<div class="muye-reader-box">
+    <h1 class="muye-reader-title">第<span>@ViewBag.conte.Sort</span><span>章</span> @ViewBag.conte.Title</h1>
+    <!-- 内容头部排版 -->
+    <div class="muye-reader-desc">
+        <span class="desc-item">
+            <span class="title">书名：</span>
+            <a style="text-decoration:none;">@ViewBag.nove.Title</a>
+        </span>
+        <span class="desc-item">
+            <span class="title">作者：</span>
+            <a style="text-decoration:none;">@ViewBag.nove.AuthorName</a>
+        </span>
+        <span class="desc-item">
+            <span class="title">本章字数：</span>@ViewBag.zijie 字
+        </span>
+        <span class="desc-item">
+            <span class="title">更新时间：</span>@ViewBag.conte.PushTime
+        </span>
+    </div>
+    <!-- 内容 -->
+    <div class="muye-reader-content noselect">
+        @Html.Raw(ViewBag.conte.Content)
+    </div>
+    <!-- 按钮 -->
+    <div class="muye-reader-btns">
+        <button onclick="lcharp()" class="byte-btn byte-btn-dashed byte-btn-size-large byte-btn-shape-square muye-button chapter-btn last" type="button">
+            <span>上一章</span>
+        </button>
+        <input id="nlane" type="hidden" value="@ViewBag.nove.NovelID" />
+        <input id="lane" type="hidden" value="@ViewBag.conte.Sort" />
+        <input id="nextend" type="hidden" value="@ViewBag.nextend.Sort" />
+        <button onclick="ncharp()" class="byte-btn byte-btn-primary byte-btn-size-large byte-btn-shape-square muye-button chapter-btn next" type="button">
+            <span>下一章</span>
+            
+        </button>
+    </div>
+</div>
+
+
+
+<!-- 目录弹窗 -->
+<div class="modal fade" id="Verticallycentered" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="VerticallycenteredLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content con" style="width: 850px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="VerticallycenteredLabel">目录</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="byte-collapse-item byte-collapse-item-active">
+                    <div class="byte-collapse-item-header">
+                        <div class="byte-collapse-item-header-title">
+                            <span>
+                                第一卷：默认 · 共 @ViewBag.count 章<i class="arrow"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="byte-collapse-item-content byte-collapse-item-content-expanded" style="display: block;height: auto;">
+                        <div class="byte-collapse-item-content-box">
+                            @foreach (var item in ViewBag.catalc)
+                            {
+                                <input id="catahi" type="hidden" value="@item.Sort" />
+                                <a id="mulu" href="/Read/Index?rid=@ViewBag.nove.NovelID&&cid=@item.Sort" class="chapter">
+                                    <div class="chapter-text">第<span>@item.Sort</span><span>章</span> @item.Title</div>
+                                </a>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* 加入书架 *@
+<script>
+    function addbr() {
+        jQuery.ajax({
+            url: "/Read/addbook",
+            type: "Get",
+            data: { "nid": $("#nlane").val(), "bkstate": $("#adtext").text() },
+            success: function (data) {
+                if (data == "true")
+                    $("#adtext").html("移出书架");
+                else
+                    $("#adtext").html("加入书架");
+            },
+            error: function (data) {
+                alert("请先登录!");//弹出框
+            }
+        })
+    }
+</script>
+@* 上一章下一章的点击事件 *@
+<script>
+    function ncharp() {
+        jQuery.ajax({
+            url: "/Read/ncharp",
+            type: "Get",
+            data: { "noveid": $("#nlane").val(), "sort": $("#lane").val() },
+            success: function (data) //成功后的回调方法
+            {
+                $(".muye-reader-inner").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("正在紧急开发中!")//弹出框
+            }
+        })
+    }
+    function lcharp() {
+        jQuery.ajax({
+            url: "/Read/lcharp",
+            type: "Get",
+            data: { "noveid": $("#nlane").val(), "sort": $("#lane").val() },
+            success: function (data) //成功后的回调方法
+            {
+                $(".muye-reader-inner").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("正在紧急开发中!")//弹出框
+            }
+        })
+    }
+</script>
+
+@* 页面加载时执行 *@
+<script>
+    window.onload = function () {
+        if ($("#catahi").val() ==@ViewBag.conte.Sort) {
+            document.getElementById("mulu").classList.add("active");
+        }
+    }
+</script>
+@* 页面加载完成后的事件 *@
+<script>
+    $(document).ready(function () {
+        @*判断当前章节是哪一章*@
+        //else {
+        //    document.getElementById("mulu").classList.remove("active");
+        //}
+        if (@ViewBag.conte.Sort != 1) {
+            $(".last").show();
+        }
+        else {
+            $(".last").hide();
+        }
+
+        if ($("#lane").val() == $("#nextend").val()) { $(".next").hide() }
+    });
+
+    window.scrollTo({ left: 0, top: 0, behavior: "smooth" }) //滚动到页面顶部
+</script>
+
+@* 目录的点击事件 *@
+<script>
+    function wecata() {
+        jQuery.ajax({
+            url: "/Read/catalogue",
+            type: "Get",
+            data: { "noveid": $("#nlane").val(), "sort": $("#catahi").val() },
+            success: function (data) //成功后的回调方法
+            {
+                $(".muye-reader-inner").html(data);//data--就是对应的分部视图页面内容.
+                //alert(data)//弹出框
+            },
+            error: function (data) {
+                alert("失败:" + data[0])//弹出框
+            }
+        })
+    }
+</script>

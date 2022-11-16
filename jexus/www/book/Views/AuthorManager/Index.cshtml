@@ -1,0 +1,41 @@
+﻿@model PagedList<Book.Models.Users>
+@{
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+
+<!-- 作家管理 -->
+<div class="Author-Manager">
+    <h5 style="margin-bottom: 20px;">作家管理</h5>
+    <div class="book-big-line"></div>
+    <div class="author-manager-show">
+        <div class="input-group mb-3" style="margin-top: 25px;width:300px">
+            @using (Ajax.BeginForm("Index", "BookManager",new AjaxOptions
+            {
+
+                UpdateTargetId = "data",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+            }, new { id = "bkman",style="display:flex" }))
+            {
+                <input type="text"  name="search" value="@TempData["authorsearch"]" style="width: 170px;border-radius: 0.25rem 0 0 0.25rem;" class="form-control" placeholder="请输入名称关键字" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <select name="dat" class="form-select" style="border-radius:0" aria-label="Default select example">
+                    <option>排序</option>
+                    <option value="1" @(Convert.ToInt32(TempData["sort"]) == 1 ? "selected" : "")>时间升序</option>
+                    <option value="2" @(Convert.ToInt32(TempData["sort"]) == 2 ? "selected" : "")>时间降序</option>
+                </select>
+                <input style="margin-right: -100px;border-radius: 0 0.25rem 0.25rem 0;" class="btn btn-info" type="submit" id="button-addon2" value="查询">
+            }
+
+        </div>
+
+        <div class="author-manager-show-table" id="data">
+            @Html.Partial("_Table", Model)
+        </div>
+    </div>
+
+</div>
+
+@section scripts
+{
+    @{ Html.RegisterMvcPagerScriptResource();}
+}

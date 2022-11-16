@@ -1,0 +1,62 @@
+﻿@model PagedList<Book.Models.Novel>
+@{
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+
+@*书籍管理 *@
+<div class="book-big">
+    <h5 style="margin-bottom: 20px;">书籍审核管理</h5>
+    <div class="book-big-line"></div>
+    <div class="book-big-manager">
+        <div class="book-big-manager-header">
+            @using (Ajax.BeginForm("Index", "BookManager", new AjaxOptions
+            {
+
+                UpdateTargetId = "data",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+            }, new { id = "bkman", style = "margin-top:25px;display:flex" }))
+            {
+                <!-- 关键字查询 -->
+                <input type="text" value="@TempData["bksearch"]" name="search" style="width: 170px;border-radius: 0.25rem 0 0 0.25rem;" class="form-control" placeholder="请输入名称关键字" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <!-- 分类查询 -->
+                <select name="cateid" class="form-select" style="border-radius:0;width:12%;text-align:left" aria-label="Default select example">
+                    <option value="0">分类列表</option>
+                    @foreach (var item in ViewData["cate"] as List<Book.Models.Categories>)
+                    {
+                        <option value="@item.CateID" @(Convert.ToInt32(TempData["cateid"]) == item.CateID ? "selected" : "")>@item.CateName</option>
+                    }
+                </select>
+                <select name="austate" class="form-select" style="border-radius:0;width:11%;" aria-label="Default select example">
+                    <option>审核状态</option>
+                    <option value="1" @(Convert.ToInt32(TempData["bkaustate"]) == 1 ? "selected" : "")>已发布</option>
+                    <option value="2" @(Convert.ToInt32(TempData["bkaustate"]) == 2 ? "selected" : "")>待审核</option>
+                    <option value="4" @(Convert.ToInt32(TempData["bkaustate"]) == 4 ? "selected" : "")>已禁用</option>
+                    <option value="5" @(Convert.ToInt32(TempData["bkaustate"]) == 5 ? "selected" : "")>申请完结中</option>
+                    <option value="3" @(Convert.ToInt32(TempData["bkaustate"]) == 3 ? "selected" : "")>审核不通过</option>
+                </select>
+                <select name="dat" class="form-select" style="border-radius:0;width:11%;" aria-label="Default select example">
+                    <option>排序</option>
+                    <option value="1" @(Convert.ToInt32(TempData["bkdat"])==1?"selected":"")>时间升序</option>
+                    <option value="2" @(Convert.ToInt32(TempData["bkdat"])==2?"selected":"")>时间降序</option>
+                </select>
+                <input name="usid" type="hidden" value="@TempData["uid"]" />
+                <input style="margin-right: -100px;border-radius: 0 0.25rem 0.25rem 0;" class="btn btn-info" type="submit" id="button-addon2" value="查询">
+
+            }
+
+        </div>
+
+        <div class="book-big-manager-table" id="data">
+
+            @Html.Partial("_Table", Model)
+
+        </div>
+
+    </div>
+
+</div>
+@section scripts
+{
+    @{ Html.RegisterMvcPagerScriptResource();}
+}

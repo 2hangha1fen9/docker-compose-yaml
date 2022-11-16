@@ -1,0 +1,94 @@
+﻿<div class="muye-rank-wrap-header">
+    <span><label id="xbb"></label>生-<label id="catename"></label>榜</span>
+    <span class="rank-info">
+        榜单说明ⓛ
+    </span>
+    <div class="rank-label-info">
+        <div class="title">榜单说明</div><div class="item">
+            1、分类榜按长池原创小说读完率排序，读完率高的作品可获得最高上万元的星火计划奖金;
+        </div>
+        <div class="item">
+            2、读完率分为10万字/30万字/50万字/80万字/100万字5个档位，仅显示最高档数据，排序依据是已有字数读完率的加权计算值，字数越多，权重越高；
+        </div>
+        <div class="item">
+            3、排行榜每天更新，仅连载中签约作品可上榜。
+        </div>
+    </div>
+</div>
+@foreach (var item in ViewBag.list)
+{
+    <input type="hidden" id="xb" value="@item.Intend" />
+    <input type="hidden" id="cate" value="@item.CateID" />
+    <div class="muye-rank-book-list">
+        <div class="rank-book-item">
+            <div class="muye-book-cover book-item-cover is-book has-hover">
+                <div class="book-cover-content">
+                    <div class="book-shadow"></div>
+                    <div class="book-cover loaded" style="border-radius:5px;">
+                        <img class="book-cover-img" src="~/Content/img/bookcover/@item.Photo" alt="透视医王">
+                    </div>
+                </div>
+            </div>
+            <div class="book-item-text">
+                <div class="title">
+                    <a href="/Detail/?nid=@item.NovelID" target="_blank" class="font-DNMrHsV173Pd4pgy">
+                        @item.Title
+                    </a>
+                </div>
+                <div class="desc">
+                    <a href="" target="_blank">
+                        作者：
+                        <span class="font-DNMrHsV173Pd4pgy">@item.AuthorName</span>
+                    </a>
+                    <span class="span"> @(item.Progress==1? "连载中" : "已完结")</span>
+                    <span class="span">100万字读完率21.01%</span>
+                </div>
+                <div class="desc abstract font-DNMrHsV173Pd4pgy">
+                    @item.Content
+                </div>
+                <div class="rank-footer">
+                    <a class="chapter" href="/Read/Index?rid=@item.NovelID" target="_blank">
+                        最近更新：@item.Ctitle.Title
+                        <i class="muyeicon-enter"></i>
+                    </a><span>@item.LastUpdate</span>
+                </div>
+            </div>
+            <button class="byte-btn byte-btn-text byte-btn-size-large byte-btn-shape-square muye-button book-item-btn" type="button">
+                <a href="/Detail/?nid=@item.NovelID" target="_blank">书籍详情</a>
+            </button>
+        </div>
+    </div>
+    }
+<script>
+    $('.rank-info').hover(
+        function () {
+            // 鼠标移入时添加apply-class-hoverr类
+            $(".rank-label-info").show();
+        }
+    )
+
+    $(".rank-info").mouseout(function () {
+        $(".rank-label-info").hide();
+    });
+    document.getElementById("xbb").innerHTML = document.getElementById("xb").value;
+    var catena = document.getElementById("cate").value;
+    if (catena == 1) {
+        document.getElementById("catename").innerHTML = "都市"
+    }
+    else if (catena == 2) {
+        document.getElementById("catename").innerHTML = "玄幻"
+    }
+    else if (catena == 3) {
+        document.getElementById("catename").innerHTML = "科幻"
+    }
+    else if (catena == 4) {
+        document.getElementById("catename").innerHTML = "悬疑"
+    }
+    else if (catena == 5) {
+        document.getElementById("catename").innerHTML = "现代言情"
+    }
+    else {
+        document.getElementById("catename").innerHTML = "古代言情"
+    }
+</script>
+

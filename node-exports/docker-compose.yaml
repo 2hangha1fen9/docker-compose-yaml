@@ -1,0 +1,8 @@
+version: "3"
+services:
+  node-exports:
+    container_name: node-exports
+    image: prom/node-exporter:latest
+    restart: always
+    ports:
+    - 9100:9100

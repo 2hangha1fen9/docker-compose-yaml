@@ -1,0 +1,11 @@
+version: "3"
+services:
+  lanproxy-client:
+    container_name: lanproxy-client
+    restart: always
+    image: 740162752/lanproxy-go-client
+    network_mode: host
+    environment:
+    - LANPROXY_KEY=1b1c1549194b4abb877bf582a8e70e02
+    - LANPROXY_HOST=82.156.207.90
+    - LANPROXY_PORT=4900

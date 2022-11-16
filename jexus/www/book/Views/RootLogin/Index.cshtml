@@ -1,0 +1,79 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>后台登录</title>
+    <!-- Custom styles for this template -->
+    <link href="~/Content/managerlogin.css" rel="stylesheet" />
+</head>
+<body>
+    <main class="form-signin">
+        <form action="/RootLogin/Login" method="post" enctype="multipart/form-data" runat="server" style="text-align: center;" >
+            <img class="mb-4" src="~/Content/img/Manager/logo.jpg" alt="" width="70" height="70" />
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+            <div class="form-floating">
+                <input  name="rootname" required="required" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">RootName</label>
+            </div>
+            <div class="form-floating">
+                <input name="rootpwd" required="required" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input id="rember" type="checkbox" value="remember-me" onclick="remberpwd()"> Remember me
+                </label>
+            </div>
+            <input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in"/>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+        </form>
+    </main>
+</body>
+<script>
+    function remberpwd() {
+        if (localStorage.identity) {
+            localStorage.removeItem("identity")
+        } else {
+            let name = document.getElementById("floatingInput").value;
+            let password = document.getElementById("floatingPassword").value;
+            console.log(name);
+            let identity = {
+                user: {
+                    name,
+                    password
+                },
+                exp: new Date().getTime() + 1000 * 60 * 60 * 24 * 30
+            }
+
+            localStorage.setItem("identity", JSON.stringify(identity))
+        }
+        
+    }
+
+    window.onload = function () {
+
+        let identity = JSON.parse(localStorage.identity)
+        if (identity && identity.exp > new Date().getTime()) {
+            document.getElementById("rember").checked = true;
+            document.getElementById("floatingInput").value = identity.user.name;
+            document.getElementById("floatingPassword").value = identity.user.password;
+        } else {
+            localStorage.removeItem("identity")
+            document.getElementById("rember").checked = false;
+        }
+    }
+</script>
+
+</html>
+
+

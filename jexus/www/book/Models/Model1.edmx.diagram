@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab5be9b2c0a74825b0ba8d8f73168301" Name="Diagram1">
+        <EntityTypeShape EntityType="BookModel.Categories" Width="1.5" PointX="2" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookModel.Charpt" Width="1.5" PointX="6.625" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookModel.Favorites" Width="1.5" PointX="9.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookModel.Novel" Width="1.5" PointX="4.625" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookModel.Rates" Width="1.5" PointX="6.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookModel.ReadLog" Width="1.5" PointX="9.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookModel.sysdiagrams" Width="1.5" PointX="2" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookModel.Users" Width="1.5" PointX="7" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="BookModel.FK_Novel_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="BookModel.FK_Charpt_Novel" ManuallyRouted="false" />
+        <AssociationConnector Association="BookModel.FK_Favorites_Novel" ManuallyRouted="false" />
+        <AssociationConnector Association="BookModel.FK_Favorites_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="BookModel.FK_Rates_Novel" ManuallyRouted="false" />
+        <AssociationConnector Association="BookModel.FK_ReadLog_Novel" ManuallyRouted="false" />
+        <AssociationConnector Association="BookModel.FK_ReadLog_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="BookModel.FK_Novel_Users" />
+        <EntityTypeShape EntityType="BookModel.Message" Width="1.5" PointX="9.5" PointY="0.75" />
+        <AssociationConnector Association="BookModel.FK_Message_Users" />
+        <EntityTypeShape EntityType="BookModel.History" Width="1.5" PointX="12.5" PointY="7.75" />
+        <AssociationConnector Association="BookModel.FK_History_Novel" />
+        <AssociationConnector Association="BookModel.FK_History_Users" />
+        <EntityTypeShape EntityType="BookModel.Drafts" Width="1.5" PointX="12.25" PointY="4.375" />
+        <AssociationConnector Association="BookModel.FK_Drafts_Drafts" />
+        <AssociationConnector Association="BookModel.FK_Drafts_Users" />
+        <EntityTypeShape EntityType="BookModel.Root" Width="1.5" PointX="0.75" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

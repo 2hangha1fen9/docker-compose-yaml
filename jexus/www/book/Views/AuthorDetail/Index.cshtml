@@ -1,0 +1,282 @@
+﻿@{
+    Layout = "~/Views/Shared/_Login.cshtml";
+    ViewBag.Title = "作者详情";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>作者详情</title>
+    <link rel="stylesheet" href="~/Content/index.css">
+    <link rel="stylesheet" href="~/Content/login.css">
+    <link rel="stylesheet" href="~/Content/authordetail.css">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.rtl.min.css">
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div>
+        <div class="header" style="margin-top: 0px;background-color: white;">
+            <div class="header-left">
+                <img src="~/Content/img/index/logo.jpg" alt="">长池小说网
+            </div>
+            <div class="header-center">
+                <a href="/Book/Index">首页</a>
+                <a href="/Library/Index">书库</a>
+                <a href="/Rank/Index">排行榜</a>
+                <a onclick="authorclic()">作家专区</a>
+                <a onclick="favbook()">我的书架</a>
+            </div>
+            <div class="muye-header-search">
+                <input id="sename" placeholder="请输入书名或作者名" value="">
+                <a id="asearch" href="javascript:void(0)" onclick="seabook()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </a>
+            </div>
+            @{
+                var username = HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["username"]?.Value);
+                var userphoto = HttpContext.Current.Request.Cookies["userphoto"]?.Value;
+                var xx = HttpContext.Current.Request.Cookies["xx"]?.Value;
+            }
+            @if (username == null)
+            {
+                <div class="user-content">
+                    <button type="button" id="big-login" class="btn" data-bs-toggle="modal" data-bs-target="#verticallyCentered">
+                        登录/注册
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div id="sunav" class="navv">
+                    <ul>
+                        <li class="sunav">
+                            <div class="user-content1">
+                                <img src="/Content/img/author/@userphoto" id="header-portrait" alt="">
+                                <p id="user-name">@username</p>
+                                <svg style="margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                </svg>
+                            </div>
+                            <span style="margin-left:0px">
+                                <ul>
+                                    <li>
+                                        <a href="/Book/ExitLogin">
+                                            <img src="~/Content/img/manager/triangle.png" alt="" style="height: 15px;">
+                                            退出登录
+                                        </a>
+                                    </li>
+                                </ul>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+        <div class="line"></div>
+        <div class="muye">
+            <div class="muye-author-home-page">
+                <div>
+                    <div class="author-breadcrumb">
+                        <div class="byte-breadcrumb">
+                            <div class="byte-breadcrumb-item">
+                                <a href="/Book/Index">首页</a>
+                            </div>
+                            <span class="byte-breadcrumb-item-separator">/</span>
+                            <div class="byte-breadcrumb-item">
+                                <span>玉松鼠</span>
+                            </div>
+                        </div>
+                        <div class="author-message">
+                            @foreach (var item in ViewData["author"] as List<Book.Models.Users>)
+                            {
+                                <div class="left">
+                                    <div class="cover">
+                                        <div class="byte-avatar byte-avatar-circle" style="width: 56px; height: 56px; line-height: 56px;">
+                                            <span class="byte-avatar-image">
+                                                <img src="~/Content/img/author/@item.Photo" alt="">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="text">
+                                        <div class="first">
+                                            <div class="title">@item.UserName</div>
+                                            <div class="mark">长池签约作家</div>
+                                        </div>
+                                        <div class="desc">@item.SelfINfo</div>
+                                    </div>
+                                    <div class="middle"></div>
+                                </div>
+                            }
+
+                            <div class="right">
+                                <div class="first">
+                                    <div>作品总字数</div>
+                                    <div class="bottom">
+                                        <span class="big x">@Math.Round(@ViewBag.Totalwords).ToString()</span>
+                                        <span class="unit">字</span>
+                                    </div>
+                                </div>
+                                <div class="second">
+                                    <div>阅读量</div>
+                                    <div class="bottom">
+                                        <span class="big y">@ViewBag.Totalcount</span>
+                                        <span class="unit">人</span>
+                                    </div>
+                                </div>
+                                <div class="third">
+                                    <div>作品数量</div>
+                                    <div class="bottom">
+                                        <span class="big z">@ViewBag.Totalbook</span>
+                                        <span class="unit">本</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="author-wroks">
+                            <div class="header-title">全部作品（@ViewBag.novelcount）</div>
+                            <div class="line1"></div>
+                            @foreach (var item in ViewBag.list)
+                            {
+                                <div class="book-item">
+                                    <div class="cover">
+                                        <img src="~/Content/img/bookcover/@item.Photo" alt="">
+                                    </div>
+                                    <div class="content">
+                                        <div class="title">
+                                            <a href="/Detail/?nid=@item.NovelID" target="_blank">@item.Title</a>
+                                        </div>
+                                        <div class="status">
+                                            @(item.Progress==1? "连载中" : "已完结")·@item.CateName
+                                            <span class="rate">100万字读完率7.83%</span>
+                                        </div>
+                                        <div class="desc1">@item.Content</div>
+                                        <div class="desc2">
+                                            <span class="clickable">
+                                                <a href="/Read/Index?rid=@item.NovelID" target="_blank">
+                                                    最近更新：@item.Ctitle.Title
+                                                    <i class="muyeicon-enter clickable">
+                                                        <svg t="1665408257702" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2303" width="16" height="20"><path d="M731.733333 480l-384-341.333333c-17.066667-14.933333-44.8-14.933333-59.733333 4.266666-14.933333 17.066667-14.933333 44.8 4.266667 59.733334L640 512 292.266667 821.333333c-17.066667 14.933333-19.2 42.666667-4.266667 59.733334 8.533333 8.533333 19.2 14.933333 32 14.933333 10.666667 0 19.2-4.266667 27.733333-10.666667l384-341.333333c8.533333-8.533333 14.933333-19.2 14.933334-32s-4.266667-23.466667-14.933334-32z" p-id="2304"></path></svg>
+                                                    </i>
+                                                </a>
+                                            </span>
+                                            <span class="time">@item.LastUpdate</span>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div>
+                                            <span class="big">@Math.Round(@item.NSize / 10000, 2).ToString()</span>
+                                            <span class="text1">万字</span>
+                                            <span class="operate"></span>
+                                            <span class="big2">@Math.Round(@item.ReadCount / 10000, 2).ToString()</span>
+                                            <span class="text2">万人在读</span>
+                                        </div>
+                                        <div class="btn">
+                                            <a href="/Detail/?nid=@item.NovelID" target="_blank">书籍详情</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footear">
+            <div class="muye-footer-ctn">
+                <div class="muye-footer-left">
+                    <img class="muye-footer-left-logo" src="~/Content/img/index/logo.jpg">
+                    <span class="muye-footer-left-text">长池小说网</span>
+                    <div class="muye-footer-left-divide"></div>
+                    <p>
+                        © 2022 重庆加多吉文化有限公司<br>
+                        <a href="" rel="noopener noreferrer nofollow">渝ICP备2022010457号</a>|
+                        <a href="" rel="noopener noreferrer nofollow">
+                            <span class="police"></span>渝ICP备2022010457号
+                        </a>|&nbsp;渝ICP备2022010457号&nbsp;|<br>网络文化经营许可证：渝ICP备2022010457号<br>请使用者仔细阅读
+                        <a href="">《长池小说网用户协议》</a>、
+                        <a href="">《长池小说网隐私政策》</a>说明<br>广告投放：
+                        <a href="" rel="noopener noreferrer nofollow">www.wanglaoji.com</a>&nbsp;&nbsp;&nbsp;&nbsp;不良信息举报：1227244076@qq.com<br>意见建议邮箱：1227244076@qq.com&nbsp;&nbsp;&nbsp;&nbsp;版权咨询：1227244076@qq.com
+                    </p>
+                </div>
+                <div class="muye-footer-right">
+                    <div class="muye-footer-right-tiktok">
+                        <img src="~/Content/img/index/tikok.jpg">
+                        <div class="muye-footer-right-tiktok-desc">
+                            <span class="muye-footer-right-tiktok-desc-img"></span>
+                            <span class="muye-footer-right-tiktok-desc-text">打开抖音扫码关注官方账号</span>
+                        </div>
+                    </div>
+                    <div class="muye-footer-right-wechat">
+                        <img src="~/Content/img/index/gzh.jpg">
+                        <div class="muye-footer-right-wechat-desc">
+                            <span class="muye-footer-right-wechat-desc-img"></span>
+                            <span class="muye-footer-right-wechat-desc-text">扫码关注微信公众号</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+@*数字转换 *@
+<script>
+    window.onload = function () {
+        $(".x").html(Number($(".x").html()).toLocaleString());
+        $(".y").html(Number($(".y").html()).toLocaleString());
+        $(".z").html(Number($(".z").html()).toLocaleString());
+    }
+
+</script>
+@* 搜索 *@
+<script>
+    function seabook() {
+        var sername = $("#sename").val();
+        if (sername != "") {
+            var a = document.getElementById("asearch");
+            a.href = "/Search/?sername=" + sername;
+        }
+
+    }
+</script>
+@*作家专区以及我的书架*@
+<script>
+    //作家专区
+    function authorclic() {
+        var username = "@username";
+        var xx = "@xx";
+        if (username) {
+            if (xx) {
+                window.location = "/Percrea/Index";
+            }
+            else {
+                window.location = "/Author/Index";
+            }
+        }
+        else {
+            $("#big-login").click();
+        }
+    }
+    //我的书架
+    function favbook()
+    {
+        var username = "@username";
+        if (username)
+        {
+            window.location = "/Favorite/Index";
+        }
+        else
+        {
+            $("#big-login").click();
+        }
+    }
+</script>
+
+</html>

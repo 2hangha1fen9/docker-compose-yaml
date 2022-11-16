@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/index.css">
+    <link rel="stylesheet" href="~/Content/lib.css">
+
+    <link rel="stylesheet" href="~/Content/bootstrap.rtl.min.css">
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/Content/login.css">
+
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+    @* 后台 *@
+    <script src="~/Scripts/sidebars.js"></script>
+    <link href="~/Content/sidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/notice.css">
+</head>
+
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    @RenderSection("scripts", required: true)
+</body>
+</html>

@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    tinymce.init({
+        selector: '#mytextarea',
+        language: 'zh-Hans',
+        height: 750,
+        width: 900,
+        indentation: '20pt',
+        indent_use_margin: true,
+        plugins: "wordcount",
+        init_instance_callback: function (editor) {
+            $(editor.getContainer()).find('button.tox-statusbar__wordcount').click();  // if you use jQuery
+        }
+
+    });
+</script>
+<!-- 章节编辑内容modal框 -->
+<div class="write-header" style="margin-top:20px">
+    <div class="a1">
+        <a href="/CharptManager/Index">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+            </svg>
+            @ViewBag.ntitle
+        </a>
+    </div>
+    <div class="write-btn">
+        <a href="/Allow/chsuccess" class="btn btn-success">通过</a>
+        <button class="btn btn-danger" style="margin-left:35px;margin-right:100px" onclick="xx()">不通过</button>
+    </div>
+</div>
+<div class="write-line"></div>
+@foreach (var item in ViewBag.charpt)
+{
+    <input type="hidden" class="x" value="@item.NovelID"/>
+    <div class="bt">
+        <div class="wx">
+            <span>第</span>
+            <span><input type="text" name="" style="border-bottom:none" id="sort" value="@item.Sort"></span>
+            <span>章</span>
+            <input type="text" name="" id="charptitle" placeholder="请输入标题" value="@item.Title">
+        </div>
+    </div>
+
+    <form method="post" style="display:flex;justify-content: center;margin-top: 30px;">
+        <textarea id="mytextarea" placeholder="请输入正文">
+            @item.Content
+        </textarea>
+
+    </form>
+}
+
+@section scripts
+{
+    @{ Html.RegisterMvcPagerScriptResource();}
+}
+
+<script>
+    function xx() {
+        var x = $(".x").val();
+        jQuery.ajax({
+            url: "/Allow/Fail",
+            type: "Post",
+            data: {"tit": $("#charptitle").val(), "xx": tinyMCE.activeEditor.getContent() },
+            datatype: "json", //指定数据类型
+            success: function (data) //成功后的回调方法
+            {
+                if (data == "true")
+                    window.location = `/CharptManager/Index/?nid=${x}`;
+                else
+                    alert("正在紧急开发中!")//弹出框
+            },
+            error: function (data) {
+                alert("正在紧急开发中!")//弹出框
+            }
+        })
+    }
+
+</script>

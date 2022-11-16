@@ -1,0 +1,44 @@
+﻿@model PagedList<Book.Controllers.CharptManagerController.Charptm>
+@{
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<div class="Charpt-manager">
+    <h5 style="margin-bottom: 20px;">章节审核管理</h5>
+    <div class="book-big-line"></div>
+    <div class="charpt-manager-show">
+        <div class="charpt-manager-show-header">
+            @using (Ajax.BeginForm("Index", "CharptManager", new AjaxOptions
+            {
+                UpdateTargetId = "data",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+            }, new { id = "chman", style = "margin-top:25px;display:flex" }))
+            {
+                <!-- 关键字查询 -->
+                <input type="text" name="search" value="@TempData["searchtext"]" style="width: 170px;border-radius: 0.25rem 0 0 0.25rem;" class="form-control" placeholder="请输入作者关键字" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <select name="stat" class="form-select" style="border-radius:0;width:11%;" aria-label="Default select example">
+                    <option>审核状态</option>
+                    <option value="1" @(Convert.ToInt32(TempData["stat"]) == 1 ? "selected" : "")>已发布</option>
+                    <option value="2" @(Convert.ToInt32(TempData["stat"]) == 2 ? "selected" : "")>待审核</option>
+                    <option value="4" @(Convert.ToInt32(TempData["stat"]) == 4 ? "selected" : "")>已禁用</option>
+                    <option value="3" @(Convert.ToInt32(TempData["stat"]) == 3 ? "selected" : "")>审核不通过</option>
+                </select>
+                <select name="dat" class="form-select" style="border-radius:0;width:11%;" aria-label="Default select example">
+                    <option>排序</option>
+                    <option value="1" @(Convert.ToInt32(TempData["cdat"]) == 1 ? "selected" : "")>时间升序</option>
+                    <option value="2" @(Convert.ToInt32(TempData["cdat"]) == 2 ? "selected" : "")>时间降序</option>
+                </select>
+                <input name="nid" type="hidden" value="@TempData["nid"]" />
+                <input style="margin-right: -100px;border-radius: 0 0.25rem 0.25rem 0;" class="btn btn-info" type="submit" id="button-addon2" value="查询">
+            }
+
+        </div>
+        <div class="charpt-manager-show-table" id="data">
+            @Html.Partial("_Table", Model)
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    @{ Html.RegisterMvcPagerScriptResource();}
+}

@@ -1,0 +1,126 @@
+﻿@if (ViewBag.favx == 1)
+{
+    <div class="muye-stack-book-list">
+        @if (ViewBag.favnovel.Count != 0)
+        {
+            foreach (var item in ViewBag.favnovel)
+            {
+                <div class="stack-book-item">
+                    <!-- 左边图片 -->
+                    <div class="muye-book-cover book-item-cover is-book has-hover">
+                        <div class="book-cover-content">
+                            <div class="book-cover loaded">
+                                <img src="~/Content/img/bookcover/@item.Photo" class="book-cover-img" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右边文字介绍 -->
+                    <div class="book-item-text">
+                        <div>
+                            <a href="/Detail/?nid=@item.NovelID" target="_blank" class="title font-fKts9tCXDjS49UhH">
+                                @item.Title
+                            </a>
+                        </div>
+                        <div class="desc">
+                            <span>
+                                作者：<span class="font-fKts9tCXDjS49UhH">@item.AuthorName</span>
+                            </span>
+                        </div>
+                        <div class="desc">
+                            <span>
+                                连载中 ·
+                                <span class="font-fKts9tCXDjS49UhH">@Math.Round(@item.NSize, 2).ToString()万字</span>
+                                ·<span class="font-fKts9tCXDjS49UhH">@item.StoreCount 收藏</span>
+                            </span>
+                        </div>
+                        <div class="desc abstract font-fKts9tCXDjS49UhH">
+                            <button class="ljyd">
+                                <a href="/Read/Index?rid=@item.NovelID&&cid=1" target="_blank">立即阅读</a>
+                            </button>
+                            <a class="sc" onclick="DelFavbook(@item.FavID,@item.NovelID)">删除</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="stack-book-item-add" onclick="addfav()">
+                <div data-v-3f421e28="" class="pic">
+                    <img data-v-3f421e28="" src="~/Content/img/fav/add.png" width="36px" height="36px">
+                </div>
+                <div class="add-text">
+                    点击添加你喜欢的小说
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="stack-book-item-add" onclick="addfav()">
+                <div data-v-3f421e28="" class="pic">
+                    <img data-v-3f421e28="" src="~/Content/img/fav/add.png" width="36px" height="36px">
+                </div>
+                <div class="add-text">
+                    点击添加你喜欢的小说
+                </div>
+            </div>
+        }
+        <!-- 单个书 -->
+        @* 添加书籍 *@
+    </div>
+}
+else
+{
+<div class="muye-stack-book-list">
+    @if (ViewBag.favnovel.Count != 0)
+    {
+        foreach (var item in ViewBag.favnovel)
+        {
+            <!-- 单个书 -->
+            <div class="stack-book-item">
+                <!-- 左边图片 -->
+                <div class="muye-book-cover book-item-cover is-book has-hover" style="height: 136px;">
+                    <div class="book-cover-content">
+                        <div class="book-cover loaded">
+                            <img src="~/Content/img/bookcover/@item.Photo" class="book-cover-img" alt="">
+                        </div>
+                    </div>
+                </div>
+                <!-- 右边文字介绍 -->
+                <div class="book-item-text">
+                    <div>
+                        <a href="/Detail/?nid=@item.NovelID" target="_blank" class="title font-fKts9tCXDjS49UhH">
+                            @item.Title
+                        </a>
+                    </div>
+                    <div class="desc" style="margin-top: 1px;">
+                        <span>
+                            作者：<span class="font-fKts9tCXDjS49UhH">@item.AuthorName</span>
+                        </span>
+                    </div>
+                    <div class="desc" style="margin-top: 1px;">
+                        <span>
+                            最近更新 :
+                            <span class="font-fKts9tCXDjS49UhH">第<span>@item.FSort</span>章</span>
+                            ·<span class="font-fKts9tCXDjS49UhH">@item.Ctitle</span>
+                        </span>
+                    </div>
+                    <div class="desc" style="margin-top: 1px;">
+                        <span>
+                            最近阅读时间 :
+                            <span class="font-fKts9tCXDjS49UhH">@item.ReadTime</span>
+                        </span>
+                    </div>
+                    <div class="desc abstract font-fKts9tCXDjS49UhH" style="margin-top: 1px;">
+                        <button class="ljyd">
+                            <a href="/Read/Index?rid=@item.NovelID&&cid=1" target="_blank">立即阅读</a>
+                        </button>
+                        <a class="sc" onclick="DelHis(@item.HisID)">删除</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+
+</div>
+}

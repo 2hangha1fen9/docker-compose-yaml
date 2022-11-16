@@ -1,0 +1,61 @@
+*
+{
+    margin: 0px;
+    box-sizing: border-box;
+}
+a
+{
+    text-decoration: none;
+}
+#nav-home
+{
+    width: 300px;
+    margin-left: 79px;
+}
+#nav-profile{
+    /* width: 300px;
+    margin-left: 79px; */
+    /* margin-top: -166px; */
+}
+#denglu
+{
+    width: 300px;
+    margin-top: 20px;
+}
+#reset
+{
+    width: 300px;
+    margin-left: 80px;
+}
+#tijiao
+{
+    width: 300px;
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+.spac
+{
+    margin-top: 20px;
+}
+.phonenumber
+{
+    width:280px;
+}
+.logintext {
+    height: 36px;
+    border-radius: 5px;
+    border:1px solid rgb(202,212,218);
+}
+#btn {
+    border: 1px solid rgb(202,212,218);
+}
+.dlandzc
+{
+    width:280px;
+    height:40px;
+    color:white;
+    background-color:blue;
+    margin-top:10px;
+    border-radius:10px;
+    border:0px;
+}

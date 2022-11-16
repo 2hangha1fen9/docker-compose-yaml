@@ -1,0 +1,123 @@
+﻿@model PagedList<Book.Controllers.CharptManagerController.Charptm>
+
+<table class="table table-hover" style="margin-top: 10px;">
+    <tr style="text-align: center;">
+        <th>作者</th>
+        <th>书籍名</th>
+        <th>章节索引</th>
+        <th>章节名称</th>
+        <th>上传时间</th>
+        <th>章节状态</th>
+        <th>操作</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <!-- 审核中 -->
+        <tr style="line-height: 60px;text-align: center;">
+            <td>@item.AuthorName</td>
+            <td>@item.BookTitle</td>
+            <td>第<span>@item.Sort</span>章</td>
+            <td>@item.Title</td>
+            <td>@item.PushTime.ToString("yyyy-MM-dd")</td>
+            <td>
+                @(item.Cstate == 3 ? "审核不通过":item.Cstate==4 ? "已禁用" : item.Cstate == 1 ? "已上传" : "待审核")
+            </td>
+            @if (item.Cstate == 2)
+            {
+                @* 审核中 *@
+                <td>
+                    <a href="/Allow/Index/?cid=@item.CharptID&&nid=@item.NovelID " class="btn btn-primary" style="font-size: 14px;">审核</a>
+                </td>
+            }
+            else if (item.Cstate == 3)
+            {
+                <td>
+                    <a href="/CharptManager/DelCharpt/?cid=@item.CharptID">
+                        <img src="~/Content/img/Manager/delete.png" style="height: 30px;" alt="">
+                    </a>
+                </td>
+
+            }
+            else
+            {
+                @*审核通过 *@
+                <td>
+                    @if (item.Cstate == 1)
+                    {
+                        <a href="/CharptManager/CharptState/?cid=@item.CharptID&&cst=1">
+                            <img src="~/Content/img/Manager/disable.png" style="height: 30px;" alt="">
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/CharptManager/CharptState/?cid=@item.CharptID&&cst=4">
+                            <img src="~/Content/img/Manager/upload.png" style="height: 30px;" alt="">
+                        </a>
+                    }
+
+                    <a href="/CharptManager/DelCharpt/?cid=@item.CharptID" style="margin-left: 26px;">
+                        <img src="~/Content/img/Manager/delete.png" style="height: 30px;" alt="">
+                    </a>
+                </td>
+            }
+        </tr>
+    }
+
+</table>
+
+<!-- 章节编辑内容modal框 -->
+<div id="mymodal" class="modal-dialog modal-dialog-centered">
+    <div class="modal fade" id="verticallyCentered" tabindex="-1" aria-labelledby="verticallyCenteredLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="width: 180%;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="verticallyCenteredLabel">审核</h5>
+                    <button type="button" style="margin-left:620px;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="bt" style="margin-top:0px">
+                        <div class="wx" style="margin-left: 0px;">
+                            <span>第</span>
+                            <span><input type="text" name="" id="sort">ViewBag.charpt.Sort</span>
+                            <span>章</span>
+                            <input type="text" name="" id="charptitle" value="ViewBag.charpt.Title">
+                        </div>
+                    </div>
+
+                    <form method="post" style="display:flex;justify-content: center;margin-top: -20px;">
+                        <textarea id="mytextarea" placeholder="请输入正文">
+                  
+                                ViewBag.charpt.Content
+
+                            </textarea>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">不通过</button>
+                    <button type="button" class="btn btn-primary">通过</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* 分页 *@
+<div style="margin: 40px auto 0px;width:100%;">
+    @Ajax.Pager(Model, new PagerOptions
+    {
+        PageIndexParameterName = "id",
+        HorizontalAlign = "center",
+        CurrentPagerItemTemplate = "<span class=\"btn-sm btn-primary\">{0}</span>",
+        DisabledPagerItemTemplate = "<span class=\"btn-sm btn-light btn-lg\">{0}</span>",
+        PagerItemTemplate = "<span class=\"btn-sm btn-light\">{0}</span>",
+        FirstPageText = "<<",
+        LastPageText = ">>"
+    }, new MvcAjaxOptions
+    {
+        UpdateTargetId = "data",
+        InsertionMode = InsertionMode.Replace,
+        DataFormId = "chman"
+    })
+</div>

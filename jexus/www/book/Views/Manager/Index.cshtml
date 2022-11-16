@@ -1,0 +1,82 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_Index.cshtml";
+    ViewBag.Title = "系统通知";
+}
+
+<div class="notice">
+    <h5>系统通知</h5>
+    <div class="notice-line"></div>
+    <!-- 系统通知 -->
+    <div class="mbox">
+        <div class="inform">
+            <div class="inform-left">
+                <div class="inform-left-text">
+                    系统通知
+                </div>
+                <div class="inform-left-content">
+                    今日新增用户:@ViewBag.user<span>个</span>
+                    今日新增作者:@ViewBag.author<span>个</span>
+                </div>
+            </div>
+            <div class="inform-right">
+                <!-- 删除 -->
+                <button onclick="mboxhide()" class="inform-del" style="border: none;background-color: rgb(220, 220, 220);">
+                    <img src="~/Content/img/Manager/delete.png" style="height: 23px;" alt="">
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- 章节审核提示 -->
+    <div class="charpt-re">
+        <div class="charpt">
+            <div class="charpt-left">
+                <div class="charpt-left-text">
+                    章节审核
+                </div>
+                <div class="charpt-left-content">
+                    待审核章节:<span>@ViewBag.carptre</span>章
+                </div>
+            </div>
+            <div class="charpt-right">
+                <!-- 消息提示 -->
+                <div class="Pending">
+                    待处理
+                    <img src="~/Content/img/Manager/message.png" style="height:23px" alt="">
+                    <span class="n">@ViewBag.carptrenew</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 书籍审核提示 -->
+    <div class="book-re">
+        <div class="book">
+            <div class="book-left">
+                <div class="book-left-text">
+                    书籍审核
+                </div>
+                <div class="book-left-content">
+                    待审核书籍:<span>@ViewBag.bookre</span>本
+                </div>
+            </div>
+            <div class="book-right">
+                <!-- 消息提示 -->
+                <div class="Pending">
+                    待处理
+                    <img src="~/Content/img/Manager/message.png" style="height:23px" alt="">
+                    <span class="n">@ViewBag.bookrenew</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    @{ Html.RegisterMvcPagerScriptResource();}
+}
+
+<script>
+    function mboxhide() {
+    $(".mbox").hide()
+    }
+</script>

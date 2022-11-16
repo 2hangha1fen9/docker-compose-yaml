@@ -1,0 +1,13 @@
+﻿@if (ViewBag.Mes.Count != 0)
+{
+    foreach (var item in ViewBag.Mes)
+    {
+        <div class="singmesg">
+            <span class="item-title">@(item.Mca==1?"审核提醒":"系统通知")：@item.Title</span>
+            <span class="item-content">
+                <span>@item.Content</span>
+            </span>
+            <span class="item-time">@item.Mtime</span>
+        </div>
+    }
+}

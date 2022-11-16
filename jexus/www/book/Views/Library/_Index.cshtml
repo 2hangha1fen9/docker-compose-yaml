@@ -1,0 +1,65 @@
+﻿@model PagedList<Book.Models.Novel>
+
+@foreach (var item in Model)
+{
+    <div class="stack-book-item">
+        <!-- 左边图片 -->
+        <div class="muye-book-cover book-item-cover is-book has-hover">
+            <div class="book-cover-content">
+                <div class="book-cover loaded">
+                    <img src="/Content/img/bookcover/@item.Photo" class="book-cover-img" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- 右边文字介绍 -->
+        <div class="book-item-text">
+            <div>
+                <a href="/Detail/?nid=@item.NovelID" target="_blank" class="title font-fKts9tCXDjS49UhH">
+                    @item.Title
+                </a>
+            </div>
+            <div class="desc">
+                <span>
+                    作者：<span class="font-fKts9tCXDjS49UhH">@item.Users.UserName</span>
+                </span>
+            </div>
+            <div class="desc">
+                <span>
+                    @(item.Progress==1? "连载中·" : "已完结·")
+                    <span class="font-fKts9tCXDjS49UhH">@Math.Round(item.NSize/10000,2).ToString()万字</span>
+                    ·<span class="font-fKts9tCXDjS49UhH">@item.ReadCount 人在读</span>
+                </span>
+            </div>
+            <div class="desc abstract font-fKts9tCXDjS49UhH">
+                @item.Content
+            </div>
+            <div class="min-footer">
+                <span>@item.LastUpdate</span>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@* 分页 *@
+<div style="margin: 80px auto 0px;width:100%;">
+@Ajax.Pager(Model, new PagerOptions
+{
+    PageIndexParameterName = "id",
+    HorizontalAlign = "center",
+    CurrentPagerItemTemplate = "<span class=\"btn-sm btn-primary\">{0}</span>",
+    DisabledPagerItemTemplate = "<span class=\"btn-sm btn-light btn-lg\">{0}</span>",
+    PagerItemTemplate = "<span class=\"btn-sm btn-light\">{0}</span>",
+    FirstPageText = "<<",
+    LastPageText = ">>"
+}, new MvcAjaxOptions
+{
+    UpdateTargetId = "muye-stack-book-list",
+    InsertionMode = InsertionMode.Replace,
+    DataFormId = "filter"
+})
+</div>
+
+
+<!-- 单个书 -->

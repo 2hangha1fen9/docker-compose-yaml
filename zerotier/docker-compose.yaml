@@ -1,0 +1,15 @@
+version: '3'
+services:
+  zerotier: 
+    image: zerotier/zerotier
+    restart: always
+    network_mode: host
+    container_name: zerotier
+    cap_add:
+    - NET_ADMIN
+    devices:
+    - /dev/net/tun
+    volumes:
+    - ./zerotier-one:/var/lib/zerotier-one
+    command: 
+    - db64858fed31afef

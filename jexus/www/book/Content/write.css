@@ -1,0 +1,107 @@
+*{
+    margin: 0px;
+}
+.a1
+{
+    margin-left: -300px;
+}
+.a1 a
+{
+    text-decoration: none;
+    font-size: 17px;
+    color: #716f6f;
+}
+.a1 a:hover
+{
+    color: orangered;
+}
+.write-header
+{
+
+    margin-top: 60px; 
+    display: flex;
+    justify-content: space-around;
+}
+.write-btn
+{
+    margin-right: -350px;
+}
+
+.cg
+{
+    outline: none;
+    cursor: pointer;
+    background-color: #f6f6f6;
+    width: 100px;
+    height: 40px;
+    font-size: 15px;
+    border: none;
+    border-radius: 20px;
+}
+.fb
+{
+    outline: none;
+    cursor: pointer;
+    background-color: #ff4f00;
+    border: none;
+    height: 40px;
+    font-size: 15px;
+    color: white;
+    border-radius: 20px;
+    width: 100px;
+    margin-left: 10px;
+}
+.cg:hover
+{
+    transition: 0.6s;
+    background-color: #d6d5d5;
+}
+.fb:hover
+{
+    transition: 0.6s;
+    background-color: #fc6d2a;
+}
+.write-line
+{
+    margin-top: 20px;
+    width: 100%;
+    height: 1px;
+    /* color: black; */
+    background: #e4e0e0;
+}
+.bt
+{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 45px;
+}
+.wx
+{
+    margin-left: -400px;
+}
+.bt span{
+    color: #b9b9bb;
+    font-size: 22px;
+}
+#sort
+{
+    border: none;
+    border-bottom: 1px solid;
+    color: #080808;
+    outline: none;
+    width: 60px;
+    text-align: center;
+    font-size: 22px;
+}
+#charptitle
+{
+    border: none;
+    color: #080808;
+    outline: none;
+    width: 300px;
+    text-align: left;
+    font-size: 21px;
+    margin-top: 2px;
+    margin-left: 20px;
+}
